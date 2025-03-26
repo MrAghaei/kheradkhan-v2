@@ -35,7 +35,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`bg-white ${iranSans.className} antialiased`}>
+      <body className={`bg-background ${iranSans.className} antialiased`}>
         {children}
       </body>
     </html>
