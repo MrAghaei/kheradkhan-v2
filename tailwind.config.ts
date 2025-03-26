@@ -11,11 +11,14 @@ export default {
       colors: {
         primary: "#7FC8A9",
         secondary: "#463730",
+          secondary50: "#c9bdb7",
         background: "#ededed",
         white: "#F9F9F9",
         text1: "#010101",
         text2: "#757575",
         link: "#4A90E2",
+
+
       },
     },
   },
