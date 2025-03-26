@@ -9,14 +9,14 @@ export default {
   theme: {
     extend: {
       colors: {
-          primary: "#7FC8A9",
-          secondary: "#463730",
-          white: '#F9F9F9',  
-          text1:'#010101',
-          text2:"#757575",
+        primary: "#7FC8A9",
+        secondary: "#463730",
+        secondary50: "#c9bdb7",
+        white: "#F9F9F9",
+        text1: "#010101",
+        text2: "#757575",
 
-          link: '#4A90E2'
-        
+        link: "#4A90E2",
       },
     },
   },
