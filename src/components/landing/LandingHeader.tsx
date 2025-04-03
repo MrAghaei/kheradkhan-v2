@@ -1,7 +1,7 @@
 "use client";
 import { User } from "lucide-react";
 import Image from "next/image";
-import Button from "../Button";
+import Button from "../main/Button";
 import { useRouter } from "next/navigation";
 
 export default function LandingHeader() {
