@@ -26,7 +26,7 @@ function Button({ text, onClick, rightIcon, leftIcon, type }: ButtonProps) {
   return (
     <button
       onClick={onClick}
-      className={` flex items-center gap-1  px-6 py-2 text-base rounded-md ${handleButtonColor()}`}
+      className={`flex items-center cursor-pointer gap-1  px-6 py-2 text-base rounded-md ${handleButtonColor()}`}
     >
       {leftIcon}
       {text}
