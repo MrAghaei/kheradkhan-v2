@@ -91,10 +91,6 @@ function Page() {
         text={authorData.bio}
         image={authorData.image}
         secondTitle={"متن تست"}
-        buttons={[
-          <Button text={"تست"} type={"secondary"} key={"1"} />,
-          <Button text={"تست"} type={"secondary"} key={"2"} />,
-        ]}
       />
       {/*Books*/}
       <div className="flex flex-col container mx-auto" dir="rtl">
@@ -107,8 +103,21 @@ function Page() {
           <SearchBox />
         </div>
         {/*Content*/}
-        <div className="grid grid-cols-5 grid-rows-2 gap-10 pt-10 justify-items-center">
-          {bookData.map((data, index) => (
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-y-10 pt-10  gap-x-4">
+          {bookData.slice(0, 5).map((data) => (
+            <BookCard
+              key={data.id}
+              image={data.image}
+              name={data.name}
+              author={data.author}
+              rating={data.rating}
+            />
+          ))}
+
+          {/* Border between rows - reduced spacing */}
+          <div className="col-span-1 md:col-span-5 border-b-[0.4px] border-secondary50"></div>
+
+          {bookData.slice(5, 10).map((data) => (
             <BookCard
               key={data.id}
               image={data.image}

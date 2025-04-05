@@ -15,7 +15,7 @@ function BookCard({ name, author, rating, image }: BookCardDataType) {
   const persianRating = formatToPersian(parseFloat(ratingString));
 
   return (
-    <div className="flex flex-col gap-3 cursor-pointer items-center w-full border-r-[0.4px] first:border-r-0 [&:nth-child(6)]:border-r-0 border-secondary50">
+    <div className="flex flex-col gap-3 cursor-pointer items-center w-full border-r-[0.4px] first:border-r-0 [&:nth-child(7)]:border-r-0 border-secondary50">
       <Image src={image} alt={name} width={120} height={150} />
       <div className="flex gap-16">
         <div className="flex flex-col items-start">
