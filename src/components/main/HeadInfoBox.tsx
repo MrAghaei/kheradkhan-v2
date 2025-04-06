@@ -25,7 +25,9 @@ function HeadInfoBox({
   return (
     <div className="h-96" dir="rtl">
       <div className="flex py-6 bg-white drop-shadow container mx-auto mt-12 rounded-xl relative overflow-hidden">
-        <div className="flex flex-col items-center gap-10 justify-between w-1/2 px-3">
+        <div
+          className={`flex flex-col items-center gap-10 justify-between ${text ? "w-1/3" : ""}  px-3`}
+        >
           <Image
             className={`${type === "author" ? "rounded-full" : ""}`}
             src={image}
@@ -38,8 +40,10 @@ function HeadInfoBox({
             <p className="text-xs text-text2">{secondTitle}</p>
           </div>
         </div>
-        <div>
-          <p className="text-sm text-text2 leading-10 px-10">{text}</p>
+        <div className="">
+          <p className="text-sm text-text2 leading-10 px-10">
+            {text || "بیوگرافی ای برای این نویسنده تعریف نشده است."}{" "}
+          </p>
           <div className="flex">
             {rightIcon}
             {buttons?.map((button) => button)}
