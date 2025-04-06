@@ -1,11 +1,5 @@
-import MainHeader from "@/components/MainHeader";
-
 function Page() {
-  return (
-    <>
-      <MainHeader />
-    </>
-  );
+  return <></>;
 }
 
 export default Page;

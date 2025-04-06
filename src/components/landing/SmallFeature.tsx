@@ -5,7 +5,7 @@ function SmallFeature() {
   const smallFeatureCardData = [
     {
       title: "هایلایت",
-      icon: "highlightIcon.svg",
+      icon: "landingHighlightIcon.svg",
       text: "با قابلیت هایلایت، می‌توانید جملات و بخش‌های مهم کتاب‌ها را ذخیره کنید و همیشه به آن‌ها دسترسی داشته باشید.",
     },
     {
@@ -15,7 +15,7 @@ function SmallFeature() {
     },
     {
       title: "مرور روزانه",
-      icon: "reviewIcon.svg",
+      icon: "landingReviewIcon.svg",
       text: "نکات مهمی که هایلایت کرده‌اید را هر روز مرور کنید و به راحتی یادآوری کنید. همچنین, نظرات و بازخوردهای خود را روی هر هایلایت ثبت کنید تا به تفکر عمیق‌تری دست یابید.",
     },
   ];

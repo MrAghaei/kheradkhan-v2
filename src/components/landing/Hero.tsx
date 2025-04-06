@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Button from "@/components/Button";
+import Button from "@/components/main/Button";
 import { ChevronLeft } from "lucide-react";
 function Hero() {
   return (
