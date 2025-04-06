@@ -2,6 +2,7 @@ import HeadInfoBox from "@/components/main/HeadInfoBox";
 import Button from "@/components/main/Button";
 import SearchBox from "@/components/main/SearchBox";
 import BookCard, { BookCardDataType } from "@/components/main/BookCard";
+import Pagination from "@/components/main/Pagination";
 
 function Page() {
   //region data
@@ -95,7 +96,7 @@ function Page() {
       {/*Books*/}
       <div className="flex flex-col container mx-auto" dir="rtl">
         {/*Heading*/}
-        <div className="flex justify-between border-b border-primary pb-4">
+        <div className="flex justify-between border-b-[0.5px] border-primary pb-4">
           <h2 className="text-secondary text-2xl">
             {" "}
             کتاب های {authorData.name}
@@ -126,6 +127,9 @@ function Page() {
               rating={data.rating}
             />
           ))}
+        </div>
+        <div className="self-end">
+          <Pagination totalPages={5} initialPage={1} />
         </div>
       </div>
     </>

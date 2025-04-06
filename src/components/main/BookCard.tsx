@@ -30,7 +30,7 @@ function BookCard({ name, author, rating, image }: BookCardDataType) {
             width={12}
             height={12}
           />
-          {persianRating}
+          <p className="text-text1 text-xs">{persianRating}</p>
         </p>
       </div>
     </div>
