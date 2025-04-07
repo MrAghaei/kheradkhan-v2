@@ -14,22 +14,22 @@ function MainHeader() {
     },
     {
       id: 2,
-      text: "کتابخانه",
+      text: "هایلایت",
       icon: "/highlightIcon.svg",
     },
     {
       id: 3,
-      text: "کتابخانه",
+      text: "مرور روزانه",
       icon: "/reviewIcon.svg",
     },
     {
       id: 4,
-      text: "کتابخانه",
+      text: "برچسب ها",
       icon: "/tagIcon.svg",
     },
     {
       id: 5,
-      text: "کتابخانه",
+      text: "مورد علاقه ها",
       icon: "/favoriteIcon.svg",
     },
   ];

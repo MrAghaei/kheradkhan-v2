@@ -8,8 +8,6 @@ type HeadInfoBoxDataType = {
   text: string;
   type: "author" | "book";
   buttons?: React.ReactNode[];
-  rightIcon?: React.ReactNode;
-  leftIcon?: React.ReactNode;
 };
 
 function HeadInfoBox({
@@ -19,8 +17,6 @@ function HeadInfoBox({
   text,
   buttons,
   type,
-  rightIcon,
-  leftIcon,
 }: HeadInfoBoxDataType) {
   return (
     <div className="h-96" dir="rtl">
@@ -44,10 +40,8 @@ function HeadInfoBox({
           <p className="text-sm text-text2 leading-10 px-10">
             {text || "بیوگرافی ای برای این نویسنده تعریف نشده است."}{" "}
           </p>
-          <div className="flex">
-            {rightIcon}
+          <div className="flex cursor-pointer mt-3">
             {buttons?.map((button) => button)}
-            {leftIcon}
           </div>
         </div>
         <Image
