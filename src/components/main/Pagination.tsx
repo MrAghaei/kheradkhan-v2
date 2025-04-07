@@ -186,7 +186,10 @@ export default function Pagination({
   };
 
   return (
-    <div className="flex items-center justify-center mt-10 rounded-lg p-2">
+    <div
+      className="flex items-center justify-center mt-10  rounded-lg p-2"
+      dir="rtl"
+    >
       <button
         onClick={() => handlePageChange(currentPage - 1)}
         disabled={currentPage === 1}

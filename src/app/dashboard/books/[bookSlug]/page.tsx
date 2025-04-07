@@ -5,6 +5,7 @@ import { MessageSquareQuote, Plus } from "lucide-react";
 import HighlightCard, {
   HighlightCardDataType,
 } from "@/components/books/HighlightCard";
+import Pagination from "@/components/main/Pagination";
 
 function Page() {
   //region data
@@ -20,11 +21,213 @@ function Page() {
       text: "بارگذاری هایلایت کتاب، علاوه بر فراهم کردن امکان سازماندهی اطلاعات، با ابزارهای هوشمند مرور و یادآوری، به شما کمک می‌کند تا مطالب را به شکل مؤثرتری به خاطر بسپارید. همچنین، قابلیت همگام‌سازی ابری و اشتراک‌گذاری محتوا، این امکان را فراهم می‌کند که اطلاعات خود را در هر دستگاهی در دسترس داشته باشید و با دیگران به اشتراک بگذارید.",
       tags: ["سیاسی", "علمی"],
       buttons: [
-        <Button key={"1"} text={""} type={"secondary"} leftIcon={<Plus />} />,
-        <Button key={"2"} text={""} type={"secondary"} leftIcon={<Plus />} />,
-        <Button key={"3"} text={""} type={"secondary"} leftIcon={<Plus />} />,
-        <Button key={"4"} text={""} type={"secondary"} leftIcon={<Plus />} />,
-        <Button key={"5"} text={""} type={"secondary"} leftIcon={<Plus />} />,
+        <Button
+          key={"1"}
+          text={""}
+          type={"secondary"}
+          leftIcon={
+            <Image
+              src={"/tagIcon.svg"}
+              alt={"tag icon"}
+              width={24}
+              height={24}
+            />
+          }
+        />,
+        <Button
+          key={"2"}
+          text={""}
+          type={"secondary"}
+          leftIcon={
+            <Image
+              src={"/reviewIcon.svg"}
+              alt={"review icon"}
+              width={24}
+              height={24}
+            />
+          }
+        />,
+        <Button
+          key={"3"}
+          text={""}
+          type={"secondary"}
+          leftIcon={
+            <Image
+              src={"/favoriteIcon.svg"}
+              alt={"favorite icon"}
+              width={24}
+              height={24}
+            />
+          }
+        />,
+        <Button
+          key={"4"}
+          text={""}
+          type={"secondary"}
+          leftIcon={
+            <Image
+              src={"/highlightIcon.svg"}
+              alt={"highlight icon"}
+              width={24}
+              height={24}
+            />
+          }
+        />,
+        <Button
+          key={"5"}
+          text={""}
+          type={"secondary"}
+          leftIcon={
+            <Image
+              src={"/shareIcon.svg"}
+              alt={"share icon"}
+              width={24}
+              height={24}
+            />
+          }
+        />,
+      ],
+    },
+    {
+      text: "بارگذاری هایلایت کتاب، علاوه بر فراهم کردن امکان سازماندهی اطلاعات، با ابزارهای هوشمند مرور و یادآوری، به شما کمک می‌کند تا مطالب را به شکل مؤثرتری به خاطر بسپارید. همچنین، قابلیت همگام‌سازی ابری و اشتراک‌گذاری محتوا، این امکان را فراهم می‌کند که اطلاعات خود را در هر دستگاهی در دسترس داشته باشید و با دیگران به اشتراک بگذارید.",
+      tags: ["سیاسی", "علمی"],
+      buttons: [
+        <Button
+          key={"1"}
+          text={""}
+          type={"secondary"}
+          leftIcon={
+            <Image
+              src={"/tagIcon.svg"}
+              alt={"tag icon"}
+              width={24}
+              height={24}
+            />
+          }
+        />,
+        <Button
+          key={"2"}
+          text={""}
+          type={"secondary"}
+          leftIcon={
+            <Image
+              src={"/reviewIcon.svg"}
+              alt={"review icon"}
+              width={24}
+              height={24}
+            />
+          }
+        />,
+        <Button
+          key={"3"}
+          text={""}
+          type={"secondary"}
+          leftIcon={
+            <Image
+              src={"/favoriteIcon.svg"}
+              alt={"favorite icon"}
+              width={24}
+              height={24}
+            />
+          }
+        />,
+        <Button
+          key={"4"}
+          text={""}
+          type={"secondary"}
+          leftIcon={
+            <Image
+              src={"/highlightIcon.svg"}
+              alt={"highlight icon"}
+              width={24}
+              height={24}
+            />
+          }
+        />,
+        <Button
+          key={"5"}
+          text={""}
+          type={"secondary"}
+          leftIcon={
+            <Image
+              src={"/shareIcon.svg"}
+              alt={"share icon"}
+              width={24}
+              height={24}
+            />
+          }
+        />,
+      ],
+    },
+    {
+      text: "بارگذاری هایلایت کتاب، علاوه بر فراهم کردن امکان سازماندهی اطلاعات، با ابزارهای هوشمند مرور و یادآوری، به شما کمک می‌کند تا مطالب را به شکل مؤثرتری به خاطر بسپارید. همچنین، قابلیت همگام‌سازی ابری و اشتراک‌گذاری محتوا، این امکان را فراهم می‌کند که اطلاعات خود را در هر دستگاهی در دسترس داشته باشید و با دیگران به اشتراک بگذارید.",
+      tags: ["سیاسی", "علمی"],
+      buttons: [
+        <Button
+          key={"1"}
+          text={""}
+          type={"secondary"}
+          leftIcon={
+            <Image
+              src={"/tagIcon.svg"}
+              alt={"tag icon"}
+              width={24}
+              height={24}
+            />
+          }
+        />,
+        <Button
+          key={"2"}
+          text={""}
+          type={"secondary"}
+          leftIcon={
+            <Image
+              src={"/reviewIcon.svg"}
+              alt={"review icon"}
+              width={24}
+              height={24}
+            />
+          }
+        />,
+        <Button
+          key={"3"}
+          text={""}
+          type={"secondary"}
+          leftIcon={
+            <Image
+              src={"/favoriteIcon.svg"}
+              alt={"favorite icon"}
+              width={24}
+              height={24}
+            />
+          }
+        />,
+        <Button
+          key={"4"}
+          text={""}
+          type={"secondary"}
+          leftIcon={
+            <Image
+              src={"/highlightIcon.svg"}
+              alt={"highlight icon"}
+              width={24}
+              height={24}
+            />
+          }
+        />,
+        <Button
+          key={"5"}
+          text={""}
+          type={"secondary"}
+          leftIcon={
+            <Image
+              src={"/shareIcon.svg"}
+              alt={"share icon"}
+              width={24}
+              height={24}
+            />
+          }
+        />,
       ],
     },
   ];
@@ -42,7 +245,14 @@ function Page() {
             key={"1"}
             text={"نظر کاربران"}
             type={"secondary"}
-            leftIcon={<MessageSquareQuote strokeWidth={1.2} />}
+            leftIcon={
+              <Image
+                src={"/userReviewIcon.svg"}
+                alt={"user review icon"}
+                width={16}
+                height={16}
+              />
+            }
           />,
           <Button
             key={"2"}
@@ -85,6 +295,9 @@ function Page() {
           tags={highlight.tags}
         />
       ))}
+      <div className="self-start">
+        <Pagination totalPages={12} initialPage={1} />
+      </div>
     </div>
   );
 }

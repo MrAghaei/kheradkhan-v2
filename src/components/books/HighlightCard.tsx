@@ -8,12 +8,20 @@ export type HighlightCardDataType = {
 
 function HighlightCard({ text, tags, buttons }: HighlightCardDataType) {
   return (
-    <div className="flex flex-col" dir="rtl">
-      <p>{text}</p>
+    <div
+      className="flex flex-col py-10 px-9 mt-8 gap-16 rounded-xl drop-shadow bg-white"
+      dir="rtl"
+    >
+      <p className="text-text2 text-xl">{text}</p>
       <div className="flex justify-between items-center">
-        <div className="flex">
+        <div className="flex gap-3">
           {tags.map((tag, index) => (
-            <div key={index}>{tag}</div>
+            <div
+              className="text-text1 text-sm py-1 px-3 bg-primary rounded-2xl"
+              key={index}
+            >
+              {tag}
+            </div>
           ))}
         </div>
 
