@@ -6,17 +6,24 @@ import { useRouter } from "next/navigation";
 import { LoginDialog } from "@/components/authentication/LoginDialog";
 import { useState } from "react";
 import { SignUpDialog } from "@/components/authentication/SignUpDialog";
+import { CreatePasswordDialog } from "@/components/authentication/CreatePasswordDialog";
 
 export default function LandingHeader() {
   //region hooks
   const [isLoginDialogOpen, setIsLoginDialogOpen] = useState(false);
   const [isSignupDialogOpen, setIsSignupDialogOpen] = useState(false);
+  const [isCreatePasswordDialogOpen, setIsCreatePasswordDialogOpen] =
+    useState(false);
   //endregion
   const router = useRouter();
   //region function
-  function handleLogin() {
+  function openLoginDialog() {
     setIsLoginDialogOpen(true);
     // router.push("/dashboard");
+  }
+  function handleLogin() {
+    setIsCreatePasswordDialogOpen(true);
+    setIsSignupDialogOpen(false);
   }
 
   function handleDialogChange(changeTo: string) {
@@ -35,7 +42,7 @@ export default function LandingHeader() {
         <Button
           text="ورود/ ثبت نام"
           rightIcon={<User />}
-          onClick={handleLogin}
+          onClick={openLoginDialog}
           type={"primary"}
         />
         <Image
@@ -55,6 +62,11 @@ export default function LandingHeader() {
           isOpen={isSignupDialogOpen}
           setIsOpen={setIsSignupDialogOpen}
           openSignUp={() => handleDialogChange("login")}
+          handleLoginClick={handleLogin}
+        />
+        <CreatePasswordDialog
+          isOpen={isCreatePasswordDialogOpen}
+          setIsOpen={setIsCreatePasswordDialogOpen}
         />
       </div>
     </header>

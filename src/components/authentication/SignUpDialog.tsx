@@ -10,10 +10,12 @@ export function SignUpDialog({
   isOpen,
   setIsOpen,
   openSignUp,
+  handleLoginClick,
 }: {
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
   openSignUp: () => void;
+  handleLoginClick: () => void;
 }) {
   //region hooks
   const [username, setUsername] = useState("");
@@ -81,7 +83,7 @@ export function SignUpDialog({
 
               <Button
                 className="w-full bg-primary300 hover:bg-primary text-white font-medium"
-                onClick={() => console.log("Login clicked")}
+                onClick={handleLoginClick}
               >
                 ثبت نام
               </Button>
