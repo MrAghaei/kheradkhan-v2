@@ -4,6 +4,7 @@ import { Dispatch, SetStateAction, useState } from "react";
 import Image from "next/image";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import "./LoginDialog.scss";
 
 export function LoginDialog({
   isOpen,
@@ -12,16 +13,16 @@ export function LoginDialog({
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
 }) {
-  // const [open, setOpen] = useState(false);
+  //region hooks
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
+  //endregion
   return (
     <div className="absolute">
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent className="sm:max-w-md p-0 overflow-hidden border rounded-lg">
-          <div className="p-6 bg-white" dir="rtl">
-            <h2 className="text-xl font-medium text-center mb-6 border-b pb-4">
+        <DialogContent className="bg-white overflow-hidden border rounded-lg">
+          <div className="p-6" dir="rtl">
+            <h2 className="text-xl text-secondary text-center mb-10 border-b border-primary200 pb-4">
               ورود به حساب کاربری
             </h2>
 
@@ -33,7 +34,7 @@ export function LoginDialog({
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   placeholder="نام کاربری"
-                  className="w-full bg-transparent border-0 border-b border-gray-300 py-2 px-0 text-right placeholder:text-gray-500 focus:ring-0 focus:border-teal-500 focus:outline-none"
+                  className="w-full bg-transparent border-0 border-b border-text1 py-2 px-0 text-right placeholder:text-text1 focus:ring-0 focus:border-primary focus:outline-none"
                 />
 
                 <div className="space-y-2">
@@ -43,12 +44,12 @@ export function LoginDialog({
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="رمز عبور"
-                    className="w-full bg-transparent border-0 border-b border-gray-300 py-2 px-0 text-right placeholder:text-gray-500 focus:ring-0 focus:border-teal-500 focus:outline-none"
+                    className="w-full bg-transparent border-0 border-b border-text1 py-2 px-0 text-right placeholder:text-text1 focus:ring-0 focus:border-primary focus:outline-none"
                   />
-                  <div className="flex justify-end">
+                  <div className="flex justify-start">
                     <a
                       href="#"
-                      className="text-sm text-teal-500 hover:text-teal-600"
+                      className="text-sm text-link hover:text-blue-700"
                     >
                       فراموشی رمز کاربری!
                     </a>
@@ -57,35 +58,36 @@ export function LoginDialog({
               </div>
 
               <Button
-                className="w-full bg-teal-200 hover:bg-teal-300 text-teal-800 font-medium"
+                className="w-full bg-primary300 hover:bg-primary text-white font-medium"
                 onClick={() => console.log("Login clicked")}
               >
                 ورود
               </Button>
 
               <div className="flex items-center gap-4 my-4">
-                <div className="h-px flex-1 bg-gray-200"></div>
-                <span className="text-gray-500">یا</span>
-                <div className="h-px flex-1 bg-gray-200"></div>
+                <div className="h-[0.2px] flex-1 bg-text1"></div>
+                <span className="text-text1">یا</span>
+                <div className="h-[0.2px] flex-1 bg-text1"></div>
               </div>
 
               <button
-                className="w-full flex items-center justify-center gap-2 border rounded-md p-2 hover:bg-gray-50"
+                className="w-full flex items-center justify-center gap-2 border rounded-md p-2 hover:bg-gray-100"
                 onClick={() => console.log("Google login clicked")}
               >
                 <Image
-                  src="/placeholder.svg?height=20&width=20"
+                  src="/googleIcon.svg"
                   alt="Google logo"
-                  width={20}
-                  height={20}
-                  className="h-5 w-5"
+                  width={25}
+                  height={25}
                 />
-                <span>ورود با حساب گوگل</span>
+                <span className="text-secondary">ورود با حساب گوگل</span>
               </button>
 
-              <div className="text-center text-sm text-gray-600 mt-4">
-                <span>اگر تو ... حساب کاربری نداری، ثبت نام کن:</span>{" "}
-                <a href="#" className="text-teal-500 hover:text-teal-600">
+              <div className="text-center text-xs hairline-shadow pt-3 text-gray-600 mt-4">
+                <span className="text-text2 ">
+                  اگر تو خردخوان حساب کاربری نداری، ثبت نام کن:
+                </span>{" "}
+                <a href="#" className="text-link hover:text-blue-700">
                   ایجاد حساب کاربری
                 </a>
               </div>
