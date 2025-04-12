@@ -3,20 +3,31 @@ import { User } from "lucide-react";
 import Image from "next/image";
 import Button from "../main/Button";
 import { useRouter } from "next/navigation";
-import { LoginDialog } from "@/components/main/LoginDialog";
+import { LoginDialog } from "@/components/authentication/LoginDialog";
 import { useState } from "react";
+import { SignUpDialog } from "@/components/authentication/SignUpDialog";
 
 export default function LandingHeader() {
   //region hooks
-  const [isOpen, setIsOpen] = useState(false);
+  const [isLoginDialogOpen, setIsLoginDialogOpen] = useState(false);
+  const [isSignupDialogOpen, setIsSignupDialogOpen] = useState(false);
   //endregion
   const router = useRouter();
   //region function
   function handleLogin() {
-    setIsOpen(true);
+    setIsLoginDialogOpen(true);
     // router.push("/dashboard");
   }
 
+  function handleDialogChange(changeTo: string) {
+    if (changeTo === "signup") {
+      setIsSignupDialogOpen(true);
+      setIsLoginDialogOpen(false);
+    } else if (changeTo === "login") {
+      setIsSignupDialogOpen(false);
+      setIsLoginDialogOpen(true);
+    }
+  }
   //endregion
   return (
     <header className="bg-white">
@@ -35,7 +46,16 @@ export default function LandingHeader() {
           width={83}
           height={80}
         />
-        <LoginDialog setIsOpen={setIsOpen} isOpen={isOpen} />
+        <LoginDialog
+          setIsOpen={setIsLoginDialogOpen}
+          isOpen={isLoginDialogOpen}
+          openSignUp={() => handleDialogChange("signup")}
+        />
+        <SignUpDialog
+          isOpen={isSignupDialogOpen}
+          setIsOpen={setIsSignupDialogOpen}
+          openSignUp={() => handleDialogChange("login")}
+        />
       </div>
     </header>
   );

@@ -9,9 +9,11 @@ import "./LoginDialog.scss";
 export function LoginDialog({
   isOpen,
   setIsOpen,
+  openSignUp,
 }: {
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
+  openSignUp: () => void;
 }) {
   //region hooks
   const [username, setUsername] = useState("");
@@ -87,7 +89,11 @@ export function LoginDialog({
                 <span className="text-text2 ">
                   اگر تو خردخوان حساب کاربری نداری، ثبت نام کن:
                 </span>{" "}
-                <a href="#" className="text-link hover:text-blue-700">
+                <a
+                  onClick={openSignUp}
+                  href="#"
+                  className="text-link hover:text-blue-700"
+                >
                   ایجاد حساب کاربری
                 </a>
               </div>
