@@ -1,5 +1,7 @@
 function Page() {
-  return <></>;
+  return (
+    <div className="flex justify-center p-96">به داشبورد خود خوش آمدید</div>
+  );
 }
 
 export default Page;
