@@ -1,8 +1,9 @@
 "use client";
 import Image from "next/image";
-import { ChevronDown, Search, User } from "lucide-react";
+import { ChevronDown, User } from "lucide-react";
 import Button from "@/components/main/Button";
 import SearchBox from "@/components/main/SearchBox";
+import { useRouter } from "next/navigation";
 
 function MainHeader() {
   //region data
@@ -35,6 +36,16 @@ function MainHeader() {
   ];
   //endregion
 
+  //region hooks
+  const router = useRouter();
+  //endregion
+
+  //region function
+  function handleButtonsNavigation(navigateTo: string) {
+    router.push(navigateTo);
+  }
+  //endregion
+
   return (
     <header className="bg-white">
       <div className="flex flex-col justify-between container mx-auto py-4 ">
@@ -46,7 +57,10 @@ function MainHeader() {
               مریم بهرامی
               <User strokeWidth={"1px"} />
             </button>
-            <button className="flex gap-1">
+            <button
+              onClick={() => handleButtonsNavigation("dashboard/mylibrary")}
+              className="flex gap-1"
+            >
               کتابخانه من
               <Image
                 src={"/myLibraryIcon.svg"}
@@ -79,7 +93,7 @@ function MainHeader() {
               leftIcon={
                 <Image
                   src={data.icon}
-                  alt={"library icon"}
+                  alt={"mylibrary icon"}
                   width={24}
                   height={24}
                 />
