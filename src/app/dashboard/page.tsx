@@ -6,7 +6,10 @@ import {
   TableAdapter,
   TableColumn,
   PageModel,
+  PageEvent,
 } from "@/components/table/models/table.model";
+import { PageableModel } from "@/models/pageable.model";
+import { FetchDataFn } from "@/models/table-fetch-data-fn.model";
 
 function Page() {
   return (
@@ -25,28 +28,16 @@ interface PaymentGateway {
 }
 
 class PaymentGatewaysAdapter extends TableAdapter<PaymentGateway> {
-  private fetchData: (
-    page: number,
-    size: number,
-  ) => Promise<PageModel<PaymentGateway>>;
-
-  constructor(
-    fetchData: (
-      page: number,
-      size: number,
-    ) => Promise<PageModel<PaymentGateway>>,
-  ) {
+  paginatorConfig = {
+    onPageChange: (pageEvent: PageEvent) => {
+      this._fetchDataFn({
+        page: pageEvent.pageIndex,
+        size: pageEvent.pageSize,
+      });
+    },
+  };
+  constructor(private _fetchDataFn: FetchDataFn) {
     super();
-    this.fetchData = fetchData;
-    this.paginatorConfig = {
-      onPageChange: async (pageEvent) => {
-        const data = await this.fetchData(
-          pageEvent.pageIndex,
-          pageEvent.pageSize,
-        );
-        this.data = data;
-      },
-    };
   }
 
   createColumns(): TableColumn<PaymentGateway>[] {
@@ -56,11 +47,13 @@ class PaymentGatewaysAdapter extends TableAdapter<PaymentGateway> {
         label: "ID",
         type: ColumnType.TEXT,
         value: (element) => element.id,
+        className: (element) =>
+          element.businessName === "Ali" ? "bg-red-100" : "bg-green-100",
       },
       {
         key: "businessName",
         label: "Business Name",
-        type: ColumnType.TEXT,
+        type: ColumnType.BADGE,
         value: (element) => element.businessName,
       },
       {
@@ -98,19 +91,28 @@ class PaymentGatewaysAdapter extends TableAdapter<PaymentGateway> {
 
 const PaymentGatewaysPage = () => {
   const [adapter] = useState(
-    () => new PaymentGatewaysAdapter(fetchPaymentGateways),
+    () => new PaymentGatewaysAdapter(fetchPaymentGatewaysHandler),
   );
+
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const loadData = async () => {
-      setLoading(true);
-      const data = await fetchPaymentGateways(0, 10);
-      adapter.data = data;
-      setLoading(false);
+      await fetchPaymentGatewaysHandler({ page: 1, size: 1 });
     };
     loadData();
-  }, [adapter]);
+  }, []);
+
+  async function fetchPaymentGatewaysHandler(
+    pageable: PageableModel,
+  ): Promise<void> {
+    console.log(pageable);
+    setLoading(true);
+    const data = await fetchPaymentGateways(0, 10);
+    adapter.data = data;
+    console.log(adapter.data);
+    setLoading(false);
+  }
 
   return (
     <div className="container mx-auto p-4">
