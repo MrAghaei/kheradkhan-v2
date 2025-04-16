@@ -8,8 +8,8 @@ import {
   PageModel,
   PageEvent,
 } from "@/components/table/models/table.model";
-import { PageableModel } from "@/models/pageable.model";
-import { FetchDataFn } from "@/models/table-fetch-data-fn.model";
+import { PageableModel } from "@/models/page.model";
+import { FetchDataFn } from "@/components/table/models/table-fetch-data-fn.model";
 
 function Page() {
   return (
@@ -74,14 +74,12 @@ class PaymentGatewaysAdapter extends TableAdapter<PaymentGateway> {
         type: ColumnType.ACTIONS,
         actions: {
           edit: {
-            isVisible: () => true,
             onClick: (element) => console.log("Edit", element.id),
-            icon: <span>✏️</span>,
+            text: "s",
           },
           delete: {
-            isVisible: () => true,
             onClick: (element) => console.log("Delete", element.id),
-            icon: <span>🗑</span>,
+            text: "s",
           },
         },
       },

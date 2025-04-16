@@ -16,6 +16,9 @@ export function Table<T>({ adapter, loading, className = "" }: TableProps<T>) {
   const columns = adapter.createColumns();
   const data = adapter.data;
 
+  console.log(data);
+  console.log(adapter.data);
+
   const renderCell = (column: TableColumn<T>, element: T, index: number) => {
     switch (column.type) {
       case ColumnType.TEXT:
@@ -36,14 +39,13 @@ export function Table<T>({ adapter, loading, className = "" }: TableProps<T>) {
           <div className="flex space-x-2">
             {column.actions &&
               Object.entries(column.actions).map(([key, action]) => {
-                if (action.isVisible && !action.isVisible(element)) return null;
                 return (
                   <button
                     key={key}
                     onClick={() => action.onClick?.(element)}
                     className="p-1 rounded hover:bg-gray-100"
                   >
-                    {action.icon}
+                    {action.text}
                   </button>
                 );
               })}

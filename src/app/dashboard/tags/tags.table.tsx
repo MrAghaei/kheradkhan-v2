@@ -4,17 +4,10 @@ import {
   TableAdapter,
   TableColumn,
 } from "@/components/table/models/table.model";
-import { FetchDataFn } from "@/models/table-fetch-data-fn.model";
-import React from "react";
+import { FetchDataFn } from "@/components/table/models/table-fetch-data-fn.model";
+import { TagsModel } from "@/app/dashboard/tags/tags.model";
 
-interface AllTableData {
-  id: string;
-  businessName: string;
-  bankAccount: string;
-  createdAt: string;
-}
-
-class TagsTable extends TableAdapter<AllTableData> {
+export default class TagsTable extends TableAdapter<TagsModel> {
   paginatorConfig = {
     onPageChange: (pageEvent: PageEvent) => {
       this._fetchDataFn({
@@ -27,48 +20,43 @@ class TagsTable extends TableAdapter<AllTableData> {
     super();
   }
 
-  createColumns(): TableColumn<AllTableData>[] {
+  createColumns(): TableColumn<TagsModel>[] {
     return [
       {
-        key: "id",
-        label: "ID",
-        type: ColumnType.TEXT,
-        value: (element) => element.id,
-        className: (element) =>
-          element.businessName === "Ali" ? "bg-red-100" : "bg-green-100",
+        key: "row",
+        label: "ردیف",
+        type: ColumnType.ROW_NUMBER,
       },
       {
-        key: "businessName",
-        label: "Business Name",
+        key: "tagName",
+        label: "برچسب",
         type: ColumnType.BADGE,
-        value: (element) => element.businessName,
+        value: (element) => element.tag,
       },
       {
-        key: "bankAccount",
-        label: "Bank Account",
-        type: ColumnType.TEXT,
-        value: (element) => element.bankAccount,
+        key: "count",
+        label: "تعداد",
+        type: ColumnType.NUMBER,
+        value: (element) => element.count,
       },
       {
-        key: "status",
-        label: "Status",
-        type: ColumnType.BADGE,
-        value: () => "Active", // Example badge value
+        key: "date",
+        label: "آخرین تاریخ",
+        type: ColumnType.NUMBER,
+        value: (element) => 1,
       },
       {
         key: "actions",
-        label: "Actions",
+        label: "ssss",
         type: ColumnType.ACTIONS,
         actions: {
           edit: {
-            isVisible: () => true,
             onClick: (element) => console.log("Edit", element.id),
-            icon: <span>✏️</span>,
+            text: "تغییر برچسب",
           },
           delete: {
-            isVisible: () => true,
             onClick: (element) => console.log("Delete", element.id),
-            icon: <span>🗑</span>,
+            text: "حذف",
           },
         },
       },

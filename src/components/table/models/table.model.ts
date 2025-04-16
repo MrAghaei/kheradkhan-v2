@@ -1,10 +1,4 @@
-export interface PageModel<T> {
-  content: T[];
-  totalElements: number;
-  totalPages: number;
-  size: number;
-  number: number;
-}
+import { PageModel } from "@/models/page.model";
 
 export interface PageEvent {
   pageIndex: number;
@@ -30,8 +24,7 @@ export interface TableColumn<T> {
   value?: (element: T, index?: number) => any;
   actions?: {
     [key: string]: {
-      isVisible?: (element: T) => boolean;
-      icon?: React.ReactNode;
+      text?: string;
       onClick?: (element: T) => void;
     };
   };
