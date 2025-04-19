@@ -4,6 +4,7 @@ import {
   TableAdapter,
   TableColumn,
 } from "@/components/table/models/table.model";
+import Pagination from "@/components/main/Pagination";
 
 interface TableProps<T> {
   adapter: TableAdapter<T>;
@@ -67,9 +68,11 @@ export function Table<T>({ adapter, loading, className = "" }: TableProps<T>) {
   }
 
   return (
-    <div className={`overflow-x-auto rounded-xl drop-shadow ${className}`}>
+    <div
+      className={`flex flex-col overflow-x-auto rounded-xl drop-shadow ${className}`}
+    >
       <table className="min-w-full divide-y divide-gray-200">
-        <thead className="bg-gray-50">
+        <thead className="bg-background2">
           <tr>
             {columns.map((column) => (
               <th
@@ -108,40 +111,8 @@ export function Table<T>({ adapter, loading, className = "" }: TableProps<T>) {
       </table>
 
       {adapter.paginatorConfig && (
-        <div className="mt-4 flex justify-between items-center">
-          <div>
-            Showing {toPersianNumbers(data.number * data.size + 1)} to{" "}
-            {toPersianNumbers(
-              Math.min((data.number + 1) * data.size, data.totalElements),
-            )}{" "}
-            of {toPersianNumbers(data.totalElements)} entries
-          </div>
-          <div className="flex space-x-2">
-            <button
-              onClick={() =>
-                adapter.paginatorConfig?.onPageChange({
-                  pageIndex: data.number - 1,
-                  pageSize: data.size,
-                })
-              }
-              disabled={data.number === 0}
-              className="px-3 py-1 border rounded disabled:opacity-50"
-            >
-              Previous
-            </button>
-            <button
-              onClick={() =>
-                adapter.paginatorConfig?.onPageChange({
-                  pageIndex: data.number + 1,
-                  pageSize: data.size,
-                })
-              }
-              disabled={data.number >= data.totalPages - 1}
-              className="px-3 py-1 border rounded disabled:opacity-50"
-            >
-              Next
-            </button>
-          </div>
+        <div className="self-end">
+          <Pagination totalPages={10} />
         </div>
       )}
     </div>

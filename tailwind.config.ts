@@ -18,6 +18,7 @@ export default {
         secondary0: "#D8CCC6",
         secondary50: "#c9bdb7",
         background: "#ededed",
+        background2: "#fbfaf9",
         white: "#F9F9F9",
         text1: "#010101",
         text2: "#757575",

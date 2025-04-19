@@ -5,7 +5,7 @@ import { PageableModel, PageModel } from "@/models/page.model";
 import { TagsModel } from "@/app/dashboard/tags/tags.model";
 import { Table } from "@/components/table/Table";
 import Button from "@/components/main/Button";
-import { Download } from "lucide-react";
+import { Download, Plus } from "lucide-react";
 
 function Page() {
   //region hooks
@@ -35,11 +35,7 @@ function Page() {
     <div className="container mx-auto flex flex-col gap-10 mt-12" dir="rtl">
       <div className="flex justify-between pb-5 border-b border-primary">
         <h2 className="text-secondary text-4xl">برجسب ها</h2>
-        <Button
-          text={"بارگذاری کتاب"}
-          type={"secondary"}
-          leftIcon={<Download />}
-        />
+        <Button text={"افزودن برچسب"} type={"secondary"} leftIcon={<Plus />} />
       </div>
       <Table adapter={table} loading={isLoading} />
     </div>
