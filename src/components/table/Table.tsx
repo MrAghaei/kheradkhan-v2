@@ -5,6 +5,15 @@ import {
   TableColumn,
 } from "@/components/table/models/table.model";
 import Pagination from "@/components/main/Pagination";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Ellipsis } from "lucide-react";
 
 interface TableProps<T> {
   adapter: TableAdapter<T>;
@@ -42,16 +51,24 @@ export function Table<T>({ adapter, loading, className = "" }: TableProps<T>) {
       case ColumnType.ACTIONS:
         return (
           <div className="flex space-x-2">
-            {column.actions &&
-              Object.entries(column.actions).map(([key, action]) => (
-                <button
-                  key={key}
-                  onClick={() => action.onClick?.(element)}
-                  className="p-1 rounded hover:bg-gray-100"
-                >
-                  {action.text}
-                </button>
-              ))}
+            {column.actions && (
+              <DropdownMenu>
+                <DropdownMenuTrigger>
+                  <Ellipsis strokeWidth={1} />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  {Object.entries(column.actions).map(([key, action]) => (
+                    <DropdownMenuItem
+                      onClick={() => action.onClick?.(element)}
+                      className="cursor-pointer"
+                      key={key}
+                    >
+                      {action.text}
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
+            )}
           </div>
         );
       default:
