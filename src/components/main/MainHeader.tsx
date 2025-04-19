@@ -12,26 +12,31 @@ function MainHeader() {
       id: 1,
       text: "کتابخانه",
       icon: "/libraryIcon.svg",
+      navigateTo: "dashboard/library",
     },
     {
       id: 2,
       text: "هایلایت",
       icon: "/highlightIcon.svg",
+      navigateTo: "dashboard/highlights",
     },
     {
       id: 3,
       text: "مرور روزانه",
       icon: "/reviewIcon.svg",
+      navigateTo: "dashboard/review",
     },
     {
       id: 4,
       text: "برچسب ها",
       icon: "/tagIcon.svg",
+      navigateTo: "dashboard/tags",
     },
     {
       id: 5,
       text: "مورد علاقه ها",
       icon: "/favoriteIcon.svg",
+      navigateTo: "dashboard/favorites",
     },
   ];
   //endregion
@@ -42,7 +47,7 @@ function MainHeader() {
 
   //region function
   function handleButtonsNavigation(navigateTo: string) {
-    router.push(navigateTo);
+    router.replace(navigateTo);
   }
   //endregion
 
@@ -87,16 +92,12 @@ function MainHeader() {
         <div className="flex pt-6 pb-3" dir="rtl">
           {buttonsData.map((data) => (
             <Button
+              onClick={() => handleButtonsNavigation(data.navigateTo)}
               key={data.id}
               text={data.text}
               type={"dashboard"}
               leftIcon={
-                <Image
-                  src={data.icon}
-                  alt={"mylibrary icon"}
-                  width={24}
-                  height={24}
-                />
+                <Image src={data.icon} alt={data.icon} width={24} height={24} />
               }
             />
           ))}
