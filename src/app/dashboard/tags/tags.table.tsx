@@ -6,6 +6,7 @@ import {
 } from "@/components/table/models/table.model";
 import { FetchDataFn } from "@/components/table/models/table-fetch-data-fn.model";
 import { TagsModel } from "@/app/dashboard/tags/tags.model";
+import moment from "moment-jalaali";
 
 export default class TagsTable extends TableAdapter<TagsModel> {
   paginatorConfig = {
@@ -43,7 +44,7 @@ export default class TagsTable extends TableAdapter<TagsModel> {
         key: "date",
         label: "آخرین تاریخ",
         type: ColumnType.NUMBER,
-        value: (element) => 1,
+        value: (element) => moment(element.date).format("jYYYY/jMM/jDD"),
       },
       {
         key: "actions",
