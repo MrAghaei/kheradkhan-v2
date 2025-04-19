@@ -34,7 +34,7 @@ function Page() {
   return (
     <div className="container mx-auto flex flex-col gap-10 mt-12" dir="rtl">
       <div className="flex justify-between pb-5 border-b border-primary">
-        <h2 className="text-secondary text-4xl">کتابخانه من</h2>
+        <h2 className="text-secondary text-4xl">برجسب ها</h2>
         <Button
           text={"بارگذاری کتاب"}
           type={"secondary"}
