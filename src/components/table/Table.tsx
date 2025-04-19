@@ -1,4 +1,3 @@
-// components/Table/Table.tsx
 import React from "react";
 import {
   ColumnType,
@@ -12,23 +11,24 @@ interface TableProps<T> {
   className?: string;
 }
 
+// Mapping English digits to Persian digits
+const persianDigits = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
+
+// Helper to convert any number or string containing digits to Persian
+const toPersianNumbers = (input: number | string): string =>
+  input.toString().replace(/\d/g, (d) => persianDigits[+d]);
+
 export function Table<T>({ adapter, loading, className = "" }: TableProps<T>) {
   const columns = adapter.createColumns();
   const data = adapter.data;
-
-  console.log(data);
-  console.log(adapter.data);
 
   const renderCell = (column: TableColumn<T>, element: T, index: number) => {
     switch (column.type) {
       case ColumnType.TEXT:
         return <span>{column.value?.(element, index) ?? ""}</span>;
       case ColumnType.NUMBER:
-        return (
-          <span className="text-text1">
-            {column.value?.(element, index) ?? 0}
-          </span>
-        );
+        const numValue = column.value?.(element, index) ?? 0;
+        return <span className="text-text1">{toPersianNumbers(numValue)}</span>;
       case ColumnType.BADGE:
         const badgeValue = column.value?.(element, index);
         return (
@@ -37,22 +37,20 @@ export function Table<T>({ adapter, loading, className = "" }: TableProps<T>) {
           </span>
         );
       case ColumnType.ROW_NUMBER:
-        return <span>{index + 1}</span>;
+        return <span>{toPersianNumbers(index + 1)}</span>;
       case ColumnType.ACTIONS:
         return (
           <div className="flex space-x-2">
             {column.actions &&
-              Object.entries(column.actions).map(([key, action]) => {
-                return (
-                  <button
-                    key={key}
-                    onClick={() => action.onClick?.(element)}
-                    className="p-1 rounded hover:bg-gray-100"
-                  >
-                    {action.text}
-                  </button>
-                );
-              })}
+              Object.entries(column.actions).map(([key, action]) => (
+                <button
+                  key={key}
+                  onClick={() => action.onClick?.(element)}
+                  className="p-1 rounded hover:bg-gray-100"
+                >
+                  {action.text}
+                </button>
+              ))}
           </div>
         );
       default:
@@ -112,9 +110,11 @@ export function Table<T>({ adapter, loading, className = "" }: TableProps<T>) {
       {adapter.paginatorConfig && (
         <div className="mt-4 flex justify-between items-center">
           <div>
-            Showing {data.number * data.size + 1} to{" "}
-            {Math.min((data.number + 1) * data.size, data.totalElements)} of{" "}
-            {data.totalElements} entries
+            Showing {toPersianNumbers(data.number * data.size + 1)} to{" "}
+            {toPersianNumbers(
+              Math.min((data.number + 1) * data.size, data.totalElements),
+            )}{" "}
+            of {toPersianNumbers(data.totalElements)} entries
           </div>
           <div className="flex space-x-2">
             <button
