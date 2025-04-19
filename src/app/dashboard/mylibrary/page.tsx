@@ -124,17 +124,20 @@ function Page() {
         />
       </div>
       {/*Content*/}
-      <div className="grid grid-rows-3 grid-cols-5 gap-y-10 pt-10 gap-x-4">
-        {bookData.map((data) => (
-          <BookCard
-            key={data.id}
-            image={data.image}
-            name={data.name}
-            author={data.author}
-            rating={data.rating}
-          />
-        ))}
+      <div className="overflow-hidden">
+        <div className="grid grid-rows-3 grid-cols-5 translate-x-[1px] translate-y-[1px] gap-y-5 pt-10 ">
+          {bookData.map((data) => (
+            <BookCard
+              key={data.id}
+              image={data.image}
+              name={data.name}
+              author={data.author}
+              rating={data.rating}
+            />
+          ))}
+        </div>
       </div>
+
       <div className="self-end">
         <Pagination totalPages={5} initialPage={1} />
       </div>

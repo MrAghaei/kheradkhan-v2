@@ -63,7 +63,7 @@ function MainHeader() {
               <User strokeWidth={"1px"} />
             </button>
             <button
-              onClick={() => handleButtonsNavigation("dashboard/mylibrary")}
+              onClick={() => handleButtonsNavigation("/dashboard/mylibrary")}
               className="flex gap-1"
             >
               کتابخانه من

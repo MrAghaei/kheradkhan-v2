@@ -36,6 +36,7 @@ export function Table<T>({ adapter, loading, className = "" }: TableProps<T>) {
       case ColumnType.IMAGE:
         return (
           <Image
+            className="mx-auto"
             src={column.value?.(element)}
             alt={column.value?.(element)}
             width={35}
@@ -93,17 +94,15 @@ export function Table<T>({ adapter, loading, className = "" }: TableProps<T>) {
   }
 
   return (
-    <div
-      className={`flex flex-col overflow-x-auto rounded-xl drop-shadow ${className}`}
-    >
-      <table className="min-w-full divide-y divide-gray-200">
+    <div className={`flex flex-col overflow-x-auto drop-shadow ${className}`}>
+      <table className="min-w-full divide-y rounded-xl overflow-hidden divide-gray-200">
         <thead className="bg-background2">
           <tr>
             {columns.map((column) => (
               <th
                 key={column.key}
                 scope="col"
-                className="px-6 py-3 text-right font-medium text-text1 text-lg uppercase tracking-wider"
+                className="px-6 py-5 text-center font-medium text-text1 text-lg uppercase tracking-wider"
               >
                 {column.label}
               </th>
@@ -124,7 +123,7 @@ export function Table<T>({ adapter, loading, className = "" }: TableProps<T>) {
                 return (
                   <td
                     key={`${column.key}-${index}`}
-                    className={`px-6 py-4 whitespace-nowrap ${tdClassName || ""}`}
+                    className={`px-6 py-6 text-center whitespace-nowrap ${tdClassName || ""}`}
                   >
                     {renderCell(column, element, index)}
                   </td>
