@@ -9,11 +9,10 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Ellipsis } from "lucide-react";
+import Image from "next/image";
 
 interface TableProps<T> {
   adapter: TableAdapter<T>;
@@ -34,6 +33,15 @@ export function Table<T>({ adapter, loading, className = "" }: TableProps<T>) {
 
   const renderCell = (column: TableColumn<T>, element: T, index: number) => {
     switch (column.type) {
+      case ColumnType.IMAGE:
+        return (
+          <Image
+            src={column.value?.(element)}
+            alt={column.value?.(element)}
+            width={35}
+            height={35}
+          />
+        );
       case ColumnType.TEXT:
         return <span>{column.value?.(element, index) ?? ""}</span>;
       case ColumnType.NUMBER:
@@ -77,11 +85,11 @@ export function Table<T>({ adapter, loading, className = "" }: TableProps<T>) {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div>در حال بارگذاری...</div>;
   }
 
   if (!data || data.content.length === 0) {
-    return <div>No data available</div>;
+    return <div>داده ای یافت نشد!</div>;
   }
 
   return (

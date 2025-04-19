@@ -5,7 +5,7 @@ import { PageableModel, PageModel } from "@/models/page.model";
 import { TagsModel } from "@/app/dashboard/tags/tags.model";
 import { Table } from "@/components/table/Table";
 import Button from "@/components/main/Button";
-import { Download, Plus } from "lucide-react";
+import { Plus } from "lucide-react";
 
 function Page() {
   //region hooks
@@ -15,7 +15,6 @@ function Page() {
     const loadData = async () => {
       await fetchTagsDataHandler({ page: 1, size: 1 });
     };
-
     loadData();
   }, []);
   //endregion

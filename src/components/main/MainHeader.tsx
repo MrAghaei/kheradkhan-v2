@@ -12,31 +12,31 @@ function MainHeader() {
       id: 1,
       text: "کتابخانه",
       icon: "/libraryIcon.svg",
-      navigateTo: "dashboard/library",
+      navigateTo: "/dashboard/library",
     },
     {
       id: 2,
       text: "هایلایت",
       icon: "/highlightIcon.svg",
-      navigateTo: "dashboard/highlights",
+      navigateTo: "/dashboard/highlights",
     },
     {
       id: 3,
       text: "مرور روزانه",
       icon: "/reviewIcon.svg",
-      navigateTo: "dashboard/review",
+      navigateTo: "/dashboard/review",
     },
     {
       id: 4,
       text: "برچسب ها",
       icon: "/tagIcon.svg",
-      navigateTo: "dashboard/tags",
+      navigateTo: "/dashboard/tags",
     },
     {
       id: 5,
       text: "مورد علاقه ها",
       icon: "/favoriteIcon.svg",
-      navigateTo: "dashboard/favorites",
+      navigateTo: "/dashboard/favorites",
     },
   ];
   //endregion
@@ -47,7 +47,7 @@ function MainHeader() {
 
   //region function
   function handleButtonsNavigation(navigateTo: string) {
-    router.replace(navigateTo);
+    router.push(navigateTo);
   }
   //endregion
 

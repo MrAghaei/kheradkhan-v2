@@ -54,7 +54,7 @@ function Page() {
           leftIcon={
             <Image
               src={"/favoriteIcon.svg"}
-              alt={"favorite icon"}
+              alt={"favorites icon"}
               width={24}
               height={24}
             />
@@ -125,7 +125,7 @@ function Page() {
           leftIcon={
             <Image
               src={"/favoriteIcon.svg"}
-              alt={"favorite icon"}
+              alt={"favorites icon"}
               width={24}
               height={24}
             />
@@ -196,7 +196,7 @@ function Page() {
           leftIcon={
             <Image
               src={"/favoriteIcon.svg"}
-              alt={"favorite icon"}
+              alt={"favorites icon"}
               width={24}
               height={24}
             />
