@@ -124,7 +124,7 @@ function Page() {
         />
       </div>
       {/*Content*/}
-      <div className="grid grid-rows-3 grid-cols-5 gap-y-10 pt-10  gap-x-4">
+      <div className="grid grid-rows-3 grid-cols-5 gap-y-10 pt-10 gap-x-4">
         {bookData.map((data) => (
           <BookCard
             key={data.id}

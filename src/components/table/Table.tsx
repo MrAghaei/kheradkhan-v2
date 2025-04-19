@@ -24,11 +24,15 @@ export function Table<T>({ adapter, loading, className = "" }: TableProps<T>) {
       case ColumnType.TEXT:
         return <span>{column.value?.(element, index) ?? ""}</span>;
       case ColumnType.NUMBER:
-        return <span>{column.value?.(element, index) ?? 0}</span>;
+        return (
+          <span className="text-text1">
+            {column.value?.(element, index) ?? 0}
+          </span>
+        );
       case ColumnType.BADGE:
         const badgeValue = column.value?.(element, index);
         return (
-          <span className="px-2 py-1 rounded-full text-xs bg-blue-100 text-blue-800">
+          <span className="px-3 py-2 rounded text-base bg-secondary0 text-text1">
             {badgeValue}
           </span>
         );
@@ -65,7 +69,7 @@ export function Table<T>({ adapter, loading, className = "" }: TableProps<T>) {
   }
 
   return (
-    <div className={`overflow-x-auto ${className}`}>
+    <div className={`overflow-x-auto rounded-xl drop-shadow ${className}`}>
       <table className="min-w-full divide-y divide-gray-200">
         <thead className="bg-gray-50">
           <tr>
@@ -73,7 +77,7 @@ export function Table<T>({ adapter, loading, className = "" }: TableProps<T>) {
               <th
                 key={column.key}
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-red-500 uppercase tracking-wider"
+                className="px-6 py-3 text-right font-medium text-text1 text-lg uppercase tracking-wider"
               >
                 {column.label}
               </th>
@@ -82,7 +86,10 @@ export function Table<T>({ adapter, loading, className = "" }: TableProps<T>) {
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
           {data.content.map((element, index) => (
-            <tr key={index}>
+            <tr
+              className={`${index % 2 === 0 ? "" : "bg-background"}`}
+              key={index}
+            >
               {columns.map((column) => {
                 const tdClassName =
                   typeof column.className === "function"

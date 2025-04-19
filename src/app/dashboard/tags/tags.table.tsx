@@ -47,7 +47,7 @@ export default class TagsTable extends TableAdapter<TagsModel> {
       },
       {
         key: "actions",
-        label: "ssss",
+        label: "",
         type: ColumnType.ACTIONS,
         actions: {
           edit: {

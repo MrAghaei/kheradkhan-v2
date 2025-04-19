@@ -4,6 +4,8 @@ import TagsTable from "@/app/dashboard/tags/tags.table";
 import { PageableModel, PageModel } from "@/models/page.model";
 import { TagsModel } from "@/app/dashboard/tags/tags.model";
 import { Table } from "@/components/table/Table";
+import Button from "@/components/main/Button";
+import { Download } from "lucide-react";
 
 function Page() {
   //region hooks
@@ -30,11 +32,20 @@ function Page() {
   }
   //endregion
   return (
-    <div className="container mx-auto" dir="rtl">
+    <div className="container mx-auto flex flex-col gap-10 mt-12" dir="rtl">
+      <div className="flex justify-between pb-5 border-b border-primary">
+        <h2 className="text-secondary text-4xl">کتابخانه من</h2>
+        <Button
+          text={"بارگذاری کتاب"}
+          type={"secondary"}
+          leftIcon={<Download />}
+        />
+      </div>
       <Table adapter={table} loading={isLoading} />
     </div>
   );
 }
+
 async function fetchPaymentGateways(
   page: number,
   size: number,

@@ -15,6 +15,7 @@ export default {
         primary200: "#CCE9DD",
         primary300: "#B2DECB",
         secondary: "#463730",
+        secondary0: "#D8CCC6",
         secondary50: "#c9bdb7",
         background: "#ededed",
         white: "#F9F9F9",
