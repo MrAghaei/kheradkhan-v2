@@ -48,6 +48,8 @@ function Page() {
       </div>
       <Table adapter={table} loading={isLoading} />
       <DeleteDialog
+        title={"حذف کتاب"}
+        message={"آیا از حذف کتاب مطمئن هستید؟"}
         open={isDeleteDialogOpen}
         onOpenChange={() => setIsDialogOpen(false)}
         onConfirm={async () => {

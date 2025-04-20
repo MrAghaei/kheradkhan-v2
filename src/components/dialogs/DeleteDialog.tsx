@@ -36,32 +36,28 @@ export function DeleteDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogTitle></DialogTitle>
       <DialogContent
-        className="p-0 overflow-hidden border shadow-lg rounded-lg max-w-md w-full"
+        className="p-0 overflow-hidden border shadow-lg bg-white max-w-md w-full"
         dir="rtl"
       >
         <div className="flex items-center justify-between p-4 border-b">
-          <button
-            onClick={() => onOpenChange(false)}
-            className="w-6 h-6 flex items-center justify-center rounded-full focus:outline-none"
-          ></button>
-          <h2 className="text-lg font-semibold">{title}</h2>
+          <h2 className="text-xl text-secondary">{title}</h2>
         </div>
-        <div className="p-6 text-center">
-          <p className="text-base">{message}</p>
+        <div className="flex p-6 text-center">
+          <p className="text-text1 text-lg">{message}</p>
         </div>
-        <div className="flex gap-3 p-4 pt-0 justify-center">
-          <Button
-            onClick={handleConfirm}
-            className="bg-emerald-400 hover:bg-emerald-500 text-white font-medium px-8 py-2 rounded-md w-32"
-          >
-            {confirmText}
-          </Button>
+        <div className="flex gap-3 p-4 pt-0 justify-end">
           <Button
             variant="outline"
             onClick={handleCancel}
-            className="border border-gray-300 bg-white hover:bg-gray-50 text-gray-700 font-medium px-8 py-2 rounded-md w-32"
+            className="border border-primary hover:border-emerald-500 bg-white hover:bg-gray-100 hover:text-primary text-primary font-medium px-8 py-2 rounded-md w-32"
           >
             {cancelText}
+          </Button>
+          <Button
+            onClick={handleConfirm}
+            className="bg-primary hover:bg-emerald-500 text-white font-medium px-8 py-2 rounded-md w-32"
+          >
+            {confirmText}
           </Button>
         </div>
       </DialogContent>
