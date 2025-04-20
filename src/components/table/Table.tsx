@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import {
   ColumnType,
   TableAdapter,
@@ -13,6 +14,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Ellipsis } from "lucide-react";
 import Image from "next/image";
+import { DeleteDialog } from "@/components/dialogs/DeleteDialog";
 
 interface TableProps<T> {
   adapter: TableAdapter<T>;
@@ -30,6 +32,10 @@ const toPersianNumbers = (input: number | string): string =>
 export function Table<T>({ adapter, loading, className = "" }: TableProps<T>) {
   const columns = adapter.createColumns();
   const data = adapter.data;
+
+  //region hooks
+
+  //endregion
 
   const renderCell = (column: TableColumn<T>, element: T, index: number) => {
     switch (column.type) {
@@ -61,6 +67,17 @@ export function Table<T>({ adapter, loading, className = "" }: TableProps<T>) {
         return (
           <div className="flex space-x-2">
             {column.actions && (
+              // <>
+              //   {Object.entries(column.actions).map(([key, action]) => (
+              //     <div
+              //       onClick={() => action.onClick?.(element)}
+              //       className="cursor-pointer"
+              //       key={key}
+              //     >
+              //       {action.text}
+              //     </div>
+              //   ))}
+              // </>
               <DropdownMenu>
                 <DropdownMenuTrigger>
                   <Ellipsis strokeWidth={1} />
@@ -68,7 +85,9 @@ export function Table<T>({ adapter, loading, className = "" }: TableProps<T>) {
                 <DropdownMenuContent>
                   {Object.entries(column.actions).map(([key, action]) => (
                     <DropdownMenuItem
-                      onClick={() => action.onClick?.(element)}
+                      onClick={() =>
+                        setTimeout(() => action.onClick?.(element), 1)
+                      }
                       className="cursor-pointer"
                       key={key}
                     >
@@ -86,11 +105,11 @@ export function Table<T>({ adapter, loading, className = "" }: TableProps<T>) {
   };
 
   if (loading) {
-    return <div>در حال بارگذاری...</div>;
+    return <div className="h-screen">در حال بارگذاری...</div>;
   }
 
   if (!data || data.content.length === 0) {
-    return <div>داده ای یافت نشد!</div>;
+    return <div className="h-screen">داده ای یافت نشد!</div>;
   }
 
   return (

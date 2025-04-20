@@ -6,7 +6,6 @@ import {
 } from "@/components/table/models/table.model";
 import { FetchDataFn } from "@/components/table/models/table-fetch-data-fn.model";
 
-import moment from "moment-jalaali";
 import { FavoritesModel } from "@/app/dashboard/favorites/favorites.model";
 
 export default class FavoritesTable extends TableAdapter<FavoritesModel> {
@@ -18,7 +17,10 @@ export default class FavoritesTable extends TableAdapter<FavoritesModel> {
       });
     },
   };
-  constructor(private _fetchDataFn: FetchDataFn) {
+  constructor(
+    private _fetchDataFn: FetchDataFn,
+    private _handleBookRemove: () => void,
+  ) {
     super();
   }
 
@@ -59,7 +61,7 @@ export default class FavoritesTable extends TableAdapter<FavoritesModel> {
         type: ColumnType.ACTIONS,
         actions: {
           delete: {
-            onClick: (element) => console.log("Delete", element.id),
+            onClick: (element) => this._handleBookRemove(),
             text: "حذف",
           },
         },

@@ -1,15 +1,17 @@
 "use client";
 import { useEffect, useState } from "react";
-import TagsTable from "@/app/dashboard/tags/tags.table";
 import { PageableModel, PageModel } from "@/models/page.model";
 import { Table } from "@/components/table/Table";
 import SearchBox from "@/components/main/SearchBox";
 import { FavoritesModel } from "@/app/dashboard/favorites/favorites.model";
 import FavoritesTable from "@/app/dashboard/favorites/favorites.table";
+import { DeleteDialog } from "@/components/dialogs/DeleteDialog";
 
 function Page() {
   //region hooks
-  const [table] = useState(() => new FavoritesTable(fetchTagsDataHandler));
+  const [table] = useState(
+    () => new FavoritesTable(fetchTagsDataHandler, handleClickBookRemove),
+  );
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     const loadData = async () => {
@@ -17,6 +19,8 @@ function Page() {
     };
     loadData();
   }, []);
+
+  const [isDeleteDialogOpen, setIsDialogOpen] = useState(false);
   //endregion
 
   //region functions
@@ -29,6 +33,11 @@ function Page() {
     console.log(table.data);
     setIsLoading(false);
   }
+
+  function handleClickBookRemove(): void {
+    setIsDialogOpen(true);
+  }
+
   //endregion
   return (
     <div className="container mx-auto flex flex-col gap-10 mt-12" dir="rtl">
@@ -37,6 +46,11 @@ function Page() {
         <SearchBox />
       </div>
       <Table adapter={table} loading={isLoading} />
+      <DeleteDialog
+        open={isDeleteDialogOpen}
+        onOpenChange={() => setIsDialogOpen(false)}
+        onConfirm={() => console.log("deleted")}
+      />
     </div>
   );
 }
