@@ -17,7 +17,10 @@ export default class TagsTable extends TableAdapter<TagsModel> {
       });
     },
   };
-  constructor(private _fetchDataFn: FetchDataFn) {
+  constructor(
+    private _fetchDataFn: FetchDataFn,
+    private _handleBookRemove: (id: string) => void,
+  ) {
     super();
   }
 
@@ -56,7 +59,7 @@ export default class TagsTable extends TableAdapter<TagsModel> {
             text: "تغییر برچسب",
           },
           delete: {
-            onClick: (element) => console.log("Delete", element.id),
+            onClick: (element) => this._handleBookRemove(element.id),
             text: "حذف",
           },
         },

@@ -6,10 +6,13 @@ import { TagsModel } from "@/app/dashboard/tags/tags.model";
 import { Table } from "@/components/table/Table";
 import Button from "@/components/main/Button";
 import { Plus } from "lucide-react";
+import { DeleteDialog } from "@/components/dialogs/DeleteDialog";
 
 function Page() {
   //region hooks
-  const [table] = useState(() => new TagsTable(fetchTagsDataHandler));
+  const [table] = useState(
+    () => new TagsTable(fetchTagsDataHandler, handleClickBookRemove),
+  );
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     const loadData = async () => {
@@ -17,6 +20,9 @@ function Page() {
     };
     loadData();
   }, []);
+
+  const [isDeleteDialogOpen, setIsDialogOpen] = useState(false);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
   //endregion
 
   //region functions
@@ -29,6 +35,11 @@ function Page() {
     console.log(table.data);
     setIsLoading(false);
   }
+
+  function handleClickBookRemove(id: string): void {
+    setIsDialogOpen(true);
+    setSelectedId(id);
+  }
   //endregion
   return (
     <div className="container mx-auto flex flex-col gap-10 mt-12" dir="rtl">
@@ -37,6 +48,16 @@ function Page() {
         <Button text={"افزودن برچسب"} type={"secondary"} leftIcon={<Plus />} />
       </div>
       <Table adapter={table} loading={isLoading} />
+      <DeleteDialog
+        title={"حذف برچسب"}
+        message={"آیا از حذف برچسب مطمئن هستید؟"}
+        open={isDeleteDialogOpen}
+        onOpenChange={() => setIsDialogOpen(false)}
+        onConfirm={async () => {
+          if (!selectedId) return;
+          console.log("deleted id:", selectedId);
+        }}
+      />
     </div>
   );
 }
