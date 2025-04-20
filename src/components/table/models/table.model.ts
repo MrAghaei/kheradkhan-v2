@@ -15,6 +15,7 @@ export enum ColumnType {
   BADGE = "BADGE",
   ROW_NUMBER = "ROW_NUMBER",
   ACTIONS = "ACTIONS",
+  IMAGE = "IMAGE",
 }
 
 export interface TableColumn<T> {

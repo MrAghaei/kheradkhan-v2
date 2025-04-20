@@ -15,23 +15,25 @@ function BookCard({ name, author, rating, image }: BookCardDataType) {
   const persianRating = formatToPersian(parseFloat(ratingString));
 
   return (
-    <div className="flex flex-col gap-3 cursor-pointer items-center w-full border-r-[0.4px] first:border-r-0 [&:nth-child(7)]:border-r-0 border-secondary50">
-      <Image src={image} alt={name} width={120} height={150} />
-      <div className="flex gap-16">
-        <div className="flex flex-col items-start">
-          <p className="text-base text-text1">{name}</p>
-          <p className=" text-text2 text-xs">{author}</p>
-        </div>
+    <div className="pb-5 border-b border-secondary50">
+      <div className="flex flex-col gap-3 cursor-pointer items-center w-full border-r  border-secondary50">
+        <Image src={image} alt={name} width={120} height={150} />
+        <div className="flex gap-16">
+          <div className="flex flex-col items-start">
+            <p className="text-base text-text1">{name}</p>
+            <p className=" text-text2 text-xs">{author}</p>
+          </div>
 
-        <p className="flex items-center self-start gap-1 text-text1 text-xs">
-          <Image
-            src={"/starIcon.svg"}
-            alt={"star icon"}
-            width={12}
-            height={12}
-          />
-          <p className="text-text1 text-xs ">{persianRating}</p>
-        </p>
+          <p className="flex items-center self-start gap-1 text-text1 text-xs">
+            <Image
+              src={"/starIcon.svg"}
+              alt={"star icon"}
+              width={12}
+              height={12}
+            />
+            <p className="text-text1 text-xs ">{persianRating}</p>
+          </p>
+        </div>
       </div>
     </div>
   );

@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import {
   ColumnType,
@@ -9,11 +10,10 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Ellipsis } from "lucide-react";
+import Image from "next/image";
 
 interface TableProps<T> {
   adapter: TableAdapter<T>;
@@ -32,8 +32,22 @@ export function Table<T>({ adapter, loading, className = "" }: TableProps<T>) {
   const columns = adapter.createColumns();
   const data = adapter.data;
 
+  //region hooks
+
+  //endregion
+
   const renderCell = (column: TableColumn<T>, element: T, index: number) => {
     switch (column.type) {
+      case ColumnType.IMAGE:
+        return (
+          <Image
+            className="mx-auto"
+            src={column.value?.(element)}
+            alt={column.value?.(element)}
+            width={35}
+            height={35}
+          />
+        );
       case ColumnType.TEXT:
         return <span>{column.value?.(element, index) ?? ""}</span>;
       case ColumnType.NUMBER:
@@ -59,7 +73,9 @@ export function Table<T>({ adapter, loading, className = "" }: TableProps<T>) {
                 <DropdownMenuContent>
                   {Object.entries(column.actions).map(([key, action]) => (
                     <DropdownMenuItem
-                      onClick={() => action.onClick?.(element)}
+                      onClick={() =>
+                        setTimeout(() => action.onClick?.(element), 1)
+                      }
                       className="cursor-pointer"
                       key={key}
                     >
@@ -77,25 +93,23 @@ export function Table<T>({ adapter, loading, className = "" }: TableProps<T>) {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className="h-screen">در حال بارگذاری...</div>;
   }
 
   if (!data || data.content.length === 0) {
-    return <div>No data available</div>;
+    return <div className="h-screen">داده ای یافت نشد!</div>;
   }
 
   return (
-    <div
-      className={`flex flex-col overflow-x-auto rounded-xl drop-shadow ${className}`}
-    >
-      <table className="min-w-full divide-y divide-gray-200">
+    <div className={`flex flex-col overflow-x-auto drop-shadow ${className}`}>
+      <table className="min-w-full divide-y rounded-xl overflow-hidden divide-gray-200">
         <thead className="bg-background2">
           <tr>
             {columns.map((column) => (
               <th
                 key={column.key}
                 scope="col"
-                className="px-6 py-3 text-right font-medium text-text1 text-lg uppercase tracking-wider"
+                className="px-6 py-5 text-center font-medium text-text1 text-lg uppercase tracking-wider"
               >
                 {column.label}
               </th>
@@ -116,7 +130,7 @@ export function Table<T>({ adapter, loading, className = "" }: TableProps<T>) {
                 return (
                   <td
                     key={`${column.key}-${index}`}
-                    className={`px-6 py-4 whitespace-nowrap ${tdClassName || ""}`}
+                    className={`px-6 py-6 text-center whitespace-nowrap ${tdClassName || ""}`}
                   >
                     {renderCell(column, element, index)}
                   </td>
