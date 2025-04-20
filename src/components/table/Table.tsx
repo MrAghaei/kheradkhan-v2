@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import {
   ColumnType,
   TableAdapter,
@@ -14,7 +14,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Ellipsis } from "lucide-react";
 import Image from "next/image";
-import { DeleteDialog } from "@/components/dialogs/DeleteDialog";
 
 interface TableProps<T> {
   adapter: TableAdapter<T>;
@@ -67,17 +66,6 @@ export function Table<T>({ adapter, loading, className = "" }: TableProps<T>) {
         return (
           <div className="flex space-x-2">
             {column.actions && (
-              // <>
-              //   {Object.entries(column.actions).map(([key, action]) => (
-              //     <div
-              //       onClick={() => action.onClick?.(element)}
-              //       className="cursor-pointer"
-              //       key={key}
-              //     >
-              //       {action.text}
-              //     </div>
-              //   ))}
-              // </>
               <DropdownMenu>
                 <DropdownMenuTrigger>
                   <Ellipsis strokeWidth={1} />

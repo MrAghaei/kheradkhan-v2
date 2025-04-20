@@ -21,6 +21,7 @@ function Page() {
   }, []);
 
   const [isDeleteDialogOpen, setIsDialogOpen] = useState(false);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
   //endregion
 
   //region functions
@@ -28,14 +29,14 @@ function Page() {
   async function fetchTagsDataHandler(pageable: PageableModel): Promise<void> {
     console.log(pageable);
     setIsLoading(true);
-    const data = await fetchPaymentGateways(0, 10);
+    const data = await fetchFavoriteBooks(0, 10);
     table.data = data;
-    console.log(table.data);
     setIsLoading(false);
   }
 
-  function handleClickBookRemove(): void {
+  function handleClickBookRemove(id: string): void {
     setIsDialogOpen(true);
+    setSelectedId(id);
   }
 
   //endregion
@@ -49,13 +50,16 @@ function Page() {
       <DeleteDialog
         open={isDeleteDialogOpen}
         onOpenChange={() => setIsDialogOpen(false)}
-        onConfirm={() => console.log("deleted")}
+        onConfirm={async () => {
+          if (!selectedId) return;
+          console.log("deleted id:", selectedId);
+        }}
       />
     </div>
   );
 }
 
-async function fetchPaymentGateways(
+async function fetchFavoriteBooks(
   page: number,
   size: number,
 ): Promise<PageModel<FavoritesModel>> {

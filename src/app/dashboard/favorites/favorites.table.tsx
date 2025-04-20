@@ -19,7 +19,7 @@ export default class FavoritesTable extends TableAdapter<FavoritesModel> {
   };
   constructor(
     private _fetchDataFn: FetchDataFn,
-    private _handleBookRemove: () => void,
+    private _handleBookRemove: (id: string) => void,
   ) {
     super();
   }
@@ -61,7 +61,7 @@ export default class FavoritesTable extends TableAdapter<FavoritesModel> {
         type: ColumnType.ACTIONS,
         actions: {
           delete: {
-            onClick: (element) => this._handleBookRemove(),
+            onClick: (element) => this._handleBookRemove(element.id),
             text: "حذف",
           },
         },

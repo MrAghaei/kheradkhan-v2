@@ -1,13 +1,4 @@
-"use client";
-import { X } from "lucide-react";
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  DialogTrigger,
-  DialogHeader,
-  DialogDescription,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 
 interface DeleteDialogProps {
@@ -37,13 +28,10 @@ export function DeleteDialog({
   };
 
   const handleConfirm = () => {
-    // onConfirm();
+    onConfirm();
     onOpenChange(false);
   };
-  const handleCloseDialog = (event) => {
-    event.preventDefault();
-    setOpen(false);
-  };
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogTitle></DialogTitle>
