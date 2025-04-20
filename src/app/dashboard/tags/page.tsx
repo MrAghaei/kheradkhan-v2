@@ -7,11 +7,17 @@ import { Table } from "@/components/table/Table";
 import Button from "@/components/main/Button";
 import { Plus } from "lucide-react";
 import { DeleteDialog } from "@/components/dialogs/DeleteDialog";
+import { EditTagDialog } from "@/components/dialogs/EditTagDialog";
 
 function Page() {
   //region hooks
   const [table] = useState(
-    () => new TagsTable(fetchTagsDataHandler, handleClickBookRemove),
+    () =>
+      new TagsTable(
+        fetchTagsDataHandler,
+        handleClickTagRemove,
+        handleClickTagEdit,
+      ),
   );
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
@@ -22,6 +28,7 @@ function Page() {
   }, []);
 
   const [isDeleteDialogOpen, setIsDialogOpen] = useState(false);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   //endregion
 
@@ -36,9 +43,12 @@ function Page() {
     setIsLoading(false);
   }
 
-  function handleClickBookRemove(id: string): void {
+  function handleClickTagRemove(id: string): void {
     setIsDialogOpen(true);
     setSelectedId(id);
+  }
+  function handleClickTagEdit(): void {
+    setIsEditDialogOpen(true);
   }
   //endregion
   return (
@@ -57,6 +67,11 @@ function Page() {
           if (!selectedId) return;
           console.log("deleted id:", selectedId);
         }}
+      />
+      <EditTagDialog
+        open={isEditDialogOpen}
+        onOpenChange={setIsEditDialogOpen}
+        onConfirm={() => console.log("confirm edits")}
       />
     </div>
   );
