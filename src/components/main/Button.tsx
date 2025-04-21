@@ -13,7 +13,7 @@ function Button({ text, onClick, rightIcon, leftIcon, type }: ButtonProps) {
   function handleButtonColor(): string {
     switch (type) {
       case "primary":
-        return "bg-primary text-white";
+        return "bg-primary text-white hover:bg-emerald-500";
 
       case "secondary":
         return "text-link";
@@ -26,7 +26,7 @@ function Button({ text, onClick, rightIcon, leftIcon, type }: ButtonProps) {
   return (
     <button
       onClick={onClick}
-      className={`flex items-center cursor-pointer gap-1  px-6 py-2 text-base rounded-md ${handleButtonColor()}`}
+      className={`flex items-center cursor-pointer transition gap-1  px-6 py-2 text-base rounded-md ${handleButtonColor()}`}
     >
       {leftIcon}
       {text}

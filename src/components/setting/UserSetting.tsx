@@ -2,26 +2,30 @@
 
 import { useState } from "react";
 import { Eye, LogOut, Pencil, Settings, User } from "lucide-react";
+import { Slider } from "@/components/ui/slider";
+import Button from "@/components/main/Button";
 
 export default function UserSettings() {
+  //region hooks
   const [activeTab, setActiveTab] = useState("profile");
   const [showPassword, setShowPassword] = useState(false);
   const [sliderValue, setSliderValue] = useState(5);
+  //endregion
 
-  // Handle slider click directly on the track
-  const handleSliderTrackClick = (e) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const offsetX = rect.right - e.clientX;
-    const percentage = Math.max(0, Math.min(1, offsetX / rect.width));
-    const newValue = Math.round((percentage * 20) / 5) * 5;
-    setSliderValue(newValue === 0 ? 5 : Math.min(newValue, 20));
-  };
-
+  //region variable
+  const TICKS = [
+    { value: 0, label: "هیچی" },
+    { value: 5, label: "۵" },
+    { value: 15, label: "۱۵" },
+    { value: 25, label: "۲۵" },
+    { value: 40, label: "۴۰" },
+  ];
+  const sliderMinValue = 0;
+  const sliderMaxValue = 40;
+  const isSliderInverted = true;
+  //endregion
   return (
-    <div
-      className="mx-auto max-w-6xl bg-gray-100 min-h-screen p-4 md:p-8"
-      dir="rtl"
-    >
+    <div className="mx-auto max-w-6xl min-h-screen p-4 md:p-8" dir="rtl">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {/* Right Side: Navigation and Header */}
         <div className="md:order-1">
@@ -32,42 +36,33 @@ export default function UserSettings() {
 
           {/* Navigation Sidebar */}
           <div className="bg-white p-6 rounded-md shadow-sm">
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-base font-medium">اطلاعات کاربر</h3>
-              <User className="h-5 w-5 text-gray-500" />
-            </div>
-
-            <div className="h-px bg-gray-200 my-4"></div>
-
             <nav className="space-y-4">
               <button
                 onClick={() => setActiveTab("profile")}
-                className={`flex items-center justify-between w-full text-right ${
-                  activeTab === "profile" ? "text-emerald-500" : "text-gray-700"
+                className={`flex items-center justify-between border-b pb-4 w-full text-right ${
+                  activeTab === "profile" ? "text-primary" : "text-text1"
                 }`}
               >
                 <User
-                  className={`h-5 w-5 ${activeTab === "profile" ? "text-emerald-500" : "text-gray-500"}`}
+                  className={`h-5 w-5 ${activeTab === "profile" ? "text-primary" : "text-text1"}`}
                 />
                 <span className="flex-1 mr-3">اطلاعات کاربر</span>
               </button>
 
               <button
                 onClick={() => setActiveTab("settings")}
-                className={`flex items-center justify-between w-full text-right ${
-                  activeTab === "settings"
-                    ? "text-emerald-500"
-                    : "text-gray-700"
+                className={`flex items-center justify-between border-b pb-4 w-full text-right ${
+                  activeTab === "settings" ? "text-primary" : "text-gray-700"
                 }`}
               >
                 <Settings
-                  className={`h-5 w-5 ${activeTab === "settings" ? "text-emerald-500" : "text-gray-500"}`}
+                  className={`h-5 w-5 ${activeTab === "settings" ? "text-primary" : "text-text1"}`}
                 />
                 <span className="flex-1 mr-3">تنظیمات مرور روزانه</span>
               </button>
 
               <button className="flex items-center justify-between w-full text-right text-gray-700">
-                <LogOut className="h-5 w-5 text-gray-500" />
+                <LogOut className="h-5 w-5 text-text1" />
                 <span className="flex-1 mr-3">خروج از حساب کاربری</span>
               </button>
             </nav>
@@ -77,7 +72,7 @@ export default function UserSettings() {
         {/* Left Side: Content and Header */}
         <div className="md:col-span-2 md:order-2">
           {/* Header */}
-          <div className="bg-white p-4 text-center rounded-md shadow-sm mb-4">
+          <div className="bg-primary50 p-4 text-right rounded-md shadow-sm mb-4">
             <h2 className="text-lg font-medium">
               {activeTab === "profile"
                 ? "اطلاعات کاربری"
@@ -86,7 +81,7 @@ export default function UserSettings() {
           </div>
 
           {/* Content */}
-          <div className="bg-white p-6 rounded-md shadow-sm">
+          <div className="flex flex-col bg-white px-12 py-10 rounded-md shadow-sm">
             {activeTab === "profile" && (
               <div className="space-y-6">
                 <div className="flex justify-between items-center">
@@ -146,7 +141,7 @@ export default function UserSettings() {
                         onClick={() => setShowPassword(!showPassword)}
                         className="absolute left-0 top-1/2 -translate-y-1/2"
                       >
-                        <Eye className="h-5 w-5 text-gray-500" />
+                        <Eye className="h-5 w-5 text-text1" />
                       </button>
                     </div>
                   </div>
@@ -156,64 +151,49 @@ export default function UserSettings() {
 
             {activeTab === "settings" && (
               <div className="space-y-8">
-                <div>
-                  <h2 className="text-lg font-medium mb-8">مرور روزانه</h2>
+                <h2 className="text-lg font-medium mb-8 border-b border-primary pb-4">
+                  مرور روزانه
+                </h2>
 
-                  <div className="space-y-6">
-                    <div className="relative pt-6">
-                      {/* Simple slider implementation */}
-                      <div
-                        className="w-full h-1 bg-gray-200 rounded-full relative cursor-pointer"
-                        onClick={handleSliderTrackClick}
-                      >
-                        {/* Colored track */}
-                        <div
-                          className="absolute h-1 bg-emerald-500 rounded-full"
+                {/* slider + labels */}
+                <div className="w-full relative" dir="ltr">
+                  <Slider
+                    defaultValue={[sliderValue]}
+                    min={0}
+                    max={40}
+                    step={5}
+                    onValueChange={(val) => setSliderValue(val[0])}
+                    className="w-full"
+                    inverted={true}
+                  />
+
+                  {/* tick labels */}
+                  <div className="absolute left-0 right-0 top-full mt-2 h-0">
+                    {TICKS.map(({ value, label }) => {
+                      const rawPct =
+                        ((value - sliderMinValue) /
+                          (sliderMaxValue - sliderMinValue)) *
+                        100;
+                      const pct = isSliderInverted ? 100 - rawPct : rawPct;
+
+                      return (
+                        <span
+                          key={value}
+                          className="absolute text-[10px] text-text1 whitespace-nowrap"
                           style={{
-                            right: "0",
-                            width: `${(sliderValue / 20) * 100}%`,
+                            left: `${pct}%`,
+                            transform: "translateX(-50%)",
                           }}
-                        ></div>
-
-                        {/* Slider buttons for each value */}
-                        {[5, 10, 15, 20].map((value) => (
-                          <button
-                            key={value}
-                            className={`absolute w-4 h-4 rounded-full -mt-1.5 focus:outline-none ${
-                              sliderValue >= value
-                                ? "bg-emerald-500"
-                                : "bg-gray-300"
-                            }`}
-                            style={{
-                              right: `${(value / 20) * 100}%`,
-                              transform: "translateX(50%)",
-                            }}
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              setSliderValue(value);
-                            }}
-                          ></button>
-                        ))}
-                      </div>
-
-                      {/* Labels */}
-                      <div className="flex justify-between text-xs text-gray-500 mt-2">
-                        <span>۵</span>
-                        <span>۱۰</span>
-                        <span>۱۵</span>
-                        <span>۲۰</span>
-                      </div>
-                      <div className="absolute top-0 right-0 text-xs text-gray-500">
-                        تعیین
-                      </div>
-                    </div>
+                        >
+                          {label}
+                        </span>
+                      );
+                    })}
                   </div>
                 </div>
 
-                <div className="flex">
-                  <button className="bg-emerald-500 hover:bg-emerald-600 text-white rounded-md px-6 py-2">
-                    ذخیره
-                  </button>
+                <div className="flex pt-16 justify-end ">
+                  <Button text={"ذخیره"} type={"primary"} />
                 </div>
               </div>
             )}
