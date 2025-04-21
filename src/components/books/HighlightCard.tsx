@@ -1,4 +1,5 @@
 import React from "react";
+import TagBadge from "@/components/tags/TagBadge";
 
 export type HighlightCardDataType = {
   text: string;
@@ -16,11 +17,8 @@ function HighlightCard({ text, tags, buttons }: HighlightCardDataType) {
       <div className="flex justify-between items-center">
         <div className="flex gap-3">
           {tags.map((tag, index) => (
-            <div
-              className="text-text1 text-sm py-1 px-3 bg-primary rounded-2xl"
-              key={index}
-            >
-              {tag}
+            <div key={index}>
+              <TagBadge tag={tag} />
             </div>
           ))}
         </div>

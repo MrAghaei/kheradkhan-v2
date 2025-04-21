@@ -187,7 +187,7 @@ export default function Pagination({
 
   return (
     <div
-      className="flex items-center justify-center mt-10  rounded-lg p-2"
+      className="flex items-center justify-center mt-10  rounded-lg p-2 self-end"
       dir="rtl"
     >
       <button
