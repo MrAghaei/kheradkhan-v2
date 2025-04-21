@@ -6,7 +6,7 @@ import { TagsModel } from "@/app/dashboard/tags/tags.model";
 import { Table } from "@/components/table/Table";
 import Button from "@/components/main/Button";
 import { Plus } from "lucide-react";
-import { DeleteDialog } from "@/components/dialogs/DeleteDialog";
+import { ConfirmDialog } from "@/components/dialogs/ConfirmDialog";
 
 function Page() {
   //region hooks
@@ -48,7 +48,7 @@ function Page() {
         <Button text={"افزودن برچسب"} type={"secondary"} leftIcon={<Plus />} />
       </div>
       <Table adapter={table} loading={isLoading} />
-      <DeleteDialog
+      <ConfirmDialog
         title={"حذف برچسب"}
         message={"آیا از حذف برچسب مطمئن هستید؟"}
         open={isDeleteDialogOpen}

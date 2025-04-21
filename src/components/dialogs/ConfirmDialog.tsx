@@ -12,7 +12,7 @@ interface DeleteDialogProps {
   onCancel?: () => void;
 }
 
-export function DeleteDialog({
+export function ConfirmDialog({
   open,
   onOpenChange,
   title = "حذف برچسب",
