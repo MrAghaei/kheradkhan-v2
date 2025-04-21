@@ -5,7 +5,7 @@ import { Table } from "@/components/table/Table";
 import SearchBox from "@/components/main/SearchBox";
 import { FavoritesModel } from "@/app/dashboard/favorites/favorites.model";
 import FavoritesTable from "@/app/dashboard/favorites/favorites.table";
-import { DeleteDialog } from "@/components/dialogs/DeleteDialog";
+import { ConfirmDialog } from "@/components/dialogs/ConfirmDialog";
 
 function Page() {
   //region hooks
@@ -47,7 +47,7 @@ function Page() {
         <SearchBox />
       </div>
       <Table adapter={table} loading={isLoading} />
-      <DeleteDialog
+      <ConfirmDialog
         title={"حذف کتاب"}
         message={"آیا از حذف کتاب مطمئن هستید؟"}
         open={isDeleteDialogOpen}

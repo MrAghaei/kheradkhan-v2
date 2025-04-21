@@ -4,12 +4,16 @@ import { useState } from "react";
 import { Eye, LogOut, Pencil, Settings, User } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
 import Button from "@/components/main/Button";
+import { ConfirmDialog } from "@/components/dialogs/ConfirmDialog";
+import { useRouter } from "next/navigation";
 
 export default function UserSettings() {
   //region hooks
+  const navigate = useRouter();
   const [activeTab, setActiveTab] = useState("profile");
   const [showPassword, setShowPassword] = useState(false);
   const [sliderValue, setSliderValue] = useState(5);
+  const [isLogoutDialogOpen, setIsLogoutDialogOpen] = useState(false);
   //endregion
 
   //region variable
@@ -23,6 +27,12 @@ export default function UserSettings() {
   const sliderMinValue = 0;
   const sliderMaxValue = 40;
   const isSliderInverted = true;
+  //endregion
+
+  //region functions
+  function handleLogout(): void {
+    navigate.push("/");
+  }
   //endregion
   return (
     <div className="mx-auto max-w-6xl min-h-screen p-4 md:p-8" dir="rtl">
@@ -61,10 +71,20 @@ export default function UserSettings() {
                 <span className="flex-1 mr-3">تنظیمات مرور روزانه</span>
               </button>
 
-              <button className="flex items-center justify-between w-full text-right text-gray-700">
+              <button
+                onClick={() => setIsLogoutDialogOpen(true)}
+                className="flex items-center justify-between w-full text-right text-gray-700"
+              >
                 <LogOut className="h-5 w-5 text-text1" />
                 <span className="flex-1 mr-3">خروج از حساب کاربری</span>
               </button>
+              <ConfirmDialog
+                message={"آیا میخواهید از حساب خود خارج شوید؟"}
+                title={"خروج از حساب کاربری"}
+                open={isLogoutDialogOpen}
+                onOpenChange={setIsLogoutDialogOpen}
+                onConfirm={handleLogout}
+              />
             </nav>
           </div>
         </div>
