@@ -1,9 +1,17 @@
 "use client";
 import Image from "next/image";
-import { ChevronDown, User } from "lucide-react";
+import { ChevronDown, Ellipsis, User } from "lucide-react";
 import Button from "@/components/main/Button";
 import SearchBox from "@/components/main/SearchBox";
 import { useRouter } from "next/navigation";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import React, { useState } from "react";
+import { ConfirmDialog } from "@/components/dialogs/ConfirmDialog";
 
 function MainHeader() {
   //region data
@@ -43,6 +51,7 @@ function MainHeader() {
 
   //region hooks
   const router = useRouter();
+  const [isLogoutDialogOpen, setIsLogoutDialogOpen] = useState(false);
   //endregion
 
   //region function
@@ -57,11 +66,40 @@ function MainHeader() {
         {/*upper side*/}
         <div className="flex justify-between items-center w-full border-b">
           <div className="flex gap-10">
-            <button className="flex gap-1">
-              <ChevronDown className="text-primary" />
-              مریم بهرامی
-              <User strokeWidth={"1px"} />
-            </button>
+            <DropdownMenu>
+              <DropdownMenuTrigger>
+                <div className="flex gap-1">
+                  <ChevronDown className="text-primary" />
+                  مریم بهرامی
+                  <User strokeWidth={"1px"} />
+                </div>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="flex flex-col px-3 py-3 gap-3">
+                <DropdownMenuItem
+                  onClick={() =>
+                    handleButtonsNavigation("/dashboard/usersetting")
+                  }
+                  className="cursor-pointer border-b text-sm"
+                >
+                  تنظیمات حساب کاربری
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() =>
+                    setTimeout(() => setIsLogoutDialogOpen(true), 1)
+                  }
+                  className="cursor-pointer text-sm"
+                >
+                  خروج از حساب کاربری
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+            <ConfirmDialog
+              message={"آیا میخواهید از حساب خود خارج شوید؟"}
+              title={"خروج از حساب کاربری"}
+              open={isLogoutDialogOpen}
+              onOpenChange={setIsLogoutDialogOpen}
+              onConfirm={() => console.log("logged out")}
+            />
             <button
               onClick={() => handleButtonsNavigation("/dashboard/mylibrary")}
               className="flex gap-1"
