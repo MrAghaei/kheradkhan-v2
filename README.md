@@ -1,4 +1,4 @@
-# Kheradkhan خردخوان
+# Kheradkhan خردخوان (In development)
 
 A Persian‑language highlights manager inspired by Readwise, built with Next.js, React, and Tailwind CSS. Import, organize, and review your book highlights in Persian with ease.
 
