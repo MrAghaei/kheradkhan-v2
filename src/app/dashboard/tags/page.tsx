@@ -6,7 +6,6 @@ import { TagsModel } from "@/app/dashboard/tags/tags.model";
 import { Table } from "@/components/table/Table";
 import Button from "@/components/main/Button";
 import { Plus } from "lucide-react";
-import { DeleteDialog } from "@/components/dialogs/DeleteDialog";
 import { EditTagDialog } from "@/components/dialogs/EditTagDialog";
 import { ConfirmDialog } from "@/components/dialogs/ConfirmDialog";
 
