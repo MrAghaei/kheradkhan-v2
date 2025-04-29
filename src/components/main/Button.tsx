@@ -1,6 +1,6 @@
 //region data types
 type ButtonProps = {
-  text: string;
+  text?: string;
   onClick?: () => void;
   rightIcon?: React.ReactNode;
   leftIcon?: React.ReactNode;

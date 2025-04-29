@@ -1,5 +1,4 @@
 import HeadInfoBox from "@/components/main/HeadInfoBox";
-import Button from "@/components/main/Button";
 import SearchBox from "@/components/main/SearchBox";
 import BookCard, { BookCardDataType } from "@/components/books/BookCard";
 import Pagination from "@/components/main/Pagination";

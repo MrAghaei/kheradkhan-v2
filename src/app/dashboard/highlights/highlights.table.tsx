@@ -4,11 +4,10 @@ import {
   TableAdapter,
   TableColumn,
 } from "@/components/table/models/table.model";
+import { HighlightsModel } from "@/app/dashboard/highlights/highlights.model";
 import { FetchDataFn } from "@/components/table/models/table-fetch-data-fn.model";
-import { TagsModel } from "@/app/dashboard/tags/tags.model";
-import moment from "moment-jalaali";
 
-export default class TagsTable extends TableAdapter<TagsModel> {
+export default class HighlightsTable extends TableAdapter<HighlightsModel> {
   paginatorConfig = {
     onPageChange: (pageEvent: PageEvent) => {
       this._fetchDataFn({
@@ -19,13 +18,11 @@ export default class TagsTable extends TableAdapter<TagsModel> {
   };
   constructor(
     private _fetchDataFn: FetchDataFn,
-    private _handleTagRemove: (id: string) => void,
-    private _handleTagEdit: () => void,
+    private _handleBookRemove: (id: string) => void,
   ) {
     super();
   }
-
-  createColumns(): TableColumn<TagsModel>[] {
+  createColumns(): TableColumn<HighlightsModel>[] {
     return [
       {
         key: "row",
@@ -33,10 +30,22 @@ export default class TagsTable extends TableAdapter<TagsModel> {
         type: ColumnType.ROW_NUMBER,
       },
       {
-        key: "tagName",
-        label: "برچسب",
-        type: ColumnType.BADGE,
-        value: (element) => element.tag,
+        key: "image",
+        label: "عکس کتاب",
+        type: ColumnType.IMAGE,
+        value: (element) => element.image,
+      },
+      {
+        key: "name",
+        label: "نام کتاب",
+        type: ColumnType.TEXT,
+        value: (element) => element.name,
+      },
+      {
+        key: "author",
+        label: "نویسنده",
+        type: ColumnType.TEXT,
+        value: (element) => element.author,
       },
       {
         key: "count",
@@ -45,25 +54,12 @@ export default class TagsTable extends TableAdapter<TagsModel> {
         value: (element) => element.count,
       },
       {
-        key: "date",
-        label: "آخرین تاریخ",
-        type: ColumnType.NUMBER,
-        value: (element) => moment(element.date).format("jYYYY/jMM/jDD"),
-      },
-      {
         key: "actions",
         label: "",
         type: ColumnType.ACTIONS,
         actions: {
-          edit: {
-            onClick: (element) => {
-              console.log(element);
-              this._handleTagEdit();
-            },
-            text: "تغییر برچسب",
-          },
           delete: {
-            onClick: (element) => this._handleTagRemove(element.id),
+            onClick: (element) => this._handleBookRemove(element.id),
             text: "حذف",
           },
         },

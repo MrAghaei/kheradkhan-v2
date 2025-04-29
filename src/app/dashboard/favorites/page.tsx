@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { PageableModel, PageModel } from "@/models/page.model";
 import { Table } from "@/components/table/Table";
 import SearchBox from "@/components/main/SearchBox";
@@ -8,36 +8,41 @@ import FavoritesTable from "@/app/dashboard/favorites/favorites.table";
 import { ConfirmDialog } from "@/components/dialogs/ConfirmDialog";
 
 function Page() {
-  //region hooks
-  const [table] = useState(
-    () => new FavoritesTable(fetchTagsDataHandler, handleClickBookRemove),
-  );
-  const [isLoading, setIsLoading] = useState(false);
-  useEffect(() => {
-    const loadData = async () => {
-      await fetchTagsDataHandler({ page: 1, size: 1 });
-    };
-    loadData();
-  }, []);
-
-  const [isDeleteDialogOpen, setIsDialogOpen] = useState(false);
-  const [selectedId, setSelectedId] = useState<string | null>(null);
-  //endregion
-
   //region functions
+  const fetchFavoritesDataHandler = useCallback(
+    async (pageable: PageableModel): Promise<void> => {
+      console.log("Loading page:", pageable);
+      setIsLoading(true);
+      const data = await fetchFavoriteBooks(0, 10);
+      if (tableRef.current) {
+        tableRef.current.data = data;
+      }
 
-  async function fetchTagsDataHandler(pageable: PageableModel): Promise<void> {
-    console.log(pageable);
-    setIsLoading(true);
-    const data = await fetchFavoriteBooks(0, 10);
-    table.data = data;
-    setIsLoading(false);
-  }
+      setIsLoading(false);
+    },
+    [],
+  );
 
-  function handleClickBookRemove(id: string): void {
+  const handleClickBookRemove = useCallback((id: string): void => {
     setIsDialogOpen(true);
     setSelectedId(id);
-  }
+  }, []);
+
+  //endregion
+
+  //region hooks
+  const [isLoading, setIsLoading] = useState(false);
+  const [isDeleteDialogOpen, setIsDialogOpen] = useState(false);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const tableRef = useRef<FavoritesTable>(null);
+
+  useEffect(() => {
+    tableRef.current = new FavoritesTable(
+      fetchFavoritesDataHandler,
+      handleClickBookRemove,
+    );
+    fetchFavoritesDataHandler({ page: 1, size: 1 });
+  }, [fetchFavoritesDataHandler, handleClickBookRemove]);
 
   //endregion
   return (
@@ -46,7 +51,10 @@ function Page() {
         <h2 className="text-secondary text-4xl">علاقه مندی ها</h2>
         <SearchBox />
       </div>
-      <Table adapter={table} loading={isLoading} />
+      {tableRef.current && (
+        <Table adapter={tableRef.current} loading={isLoading} />
+      )}
+
       <ConfirmDialog
         title={"حذف کتاب"}
         message={"آیا از حذف کتاب مطمئن هستید؟"}

@@ -2,7 +2,6 @@
 import { User } from "lucide-react";
 import Image from "next/image";
 import Button from "../main/Button";
-import { useRouter } from "next/navigation";
 import { LoginDialog } from "@/components/authentication/LoginDialog";
 import { useState } from "react";
 import { SignUpDialog } from "@/components/authentication/SignUpDialog";
@@ -15,7 +14,7 @@ export default function LandingHeader() {
   const [isCreatePasswordDialogOpen, setIsCreatePasswordDialogOpen] =
     useState(false);
   //endregion
-  const router = useRouter();
+
   //region function
   function openLoginDialog() {
     setIsLoginDialogOpen(true);
