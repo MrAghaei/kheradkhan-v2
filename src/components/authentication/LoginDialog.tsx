@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import "./LoginDialog.scss";
+import { useRouter } from "next/navigation";
 
 export function LoginDialog({
   isOpen,
@@ -18,6 +19,8 @@ export function LoginDialog({
   //region hooks
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  const navigate = useRouter();
   //endregion
   return (
     <div className="absolute">
@@ -61,7 +64,7 @@ export function LoginDialog({
 
               <Button
                 className="w-full bg-primary300 hover:bg-primary text-white font-medium"
-                onClick={() => console.log("Login clicked")}
+                onClick={() => navigate.push("/dashboard")}
               >
                 ورود
               </Button>

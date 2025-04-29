@@ -35,11 +35,9 @@ function Page() {
   //region functions
 
   async function fetchTagsDataHandler(pageable: PageableModel): Promise<void> {
-    console.log(pageable);
     setIsLoading(true);
-    const data = await fetchPaymentGateways(0, 10);
+    const data = await fetchTagsData(0, 10);
     table.data = data;
-    console.log(table.data);
     setIsLoading(false);
   }
 
@@ -77,7 +75,7 @@ function Page() {
   );
 }
 
-async function fetchPaymentGateways(
+async function fetchTagsData(
   page: number,
   size: number,
 ): Promise<PageModel<TagsModel>> {

@@ -16,15 +16,15 @@ import { ConfirmDialog } from "@/components/dialogs/ConfirmDialog";
 function MainHeader() {
   //region data
   const buttonsData = [
-    {
-      id: 1,
-      text: "کتابخانه",
-      icon: "/libraryIcon.svg",
-      navigateTo: "/dashboard/library",
-    },
+    // {
+    //   id: 1,
+    //   text: "کتابخانه",
+    //   icon: "/libraryIcon.svg",
+    //   navigateTo: "/dashboard/library",
+    // },
     {
       id: 2,
-      text: "هایلایت",
+      text: "هایلایت ها",
       icon: "/highlightIcon.svg",
       navigateTo: "/dashboard/highlights",
     },
