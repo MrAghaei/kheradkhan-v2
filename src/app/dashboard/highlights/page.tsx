@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import HighlightsTable from "@/app/dashboard/highlights/highlights.table";
 import { PageableModel, PageModel } from "@/models/page.model";
 import SearchBox from "@/components/main/SearchBox";
@@ -8,25 +8,6 @@ import { ConfirmDialog } from "@/components/dialogs/ConfirmDialog";
 import { FavoritesModel } from "@/app/dashboard/favorites/favorites.model";
 
 function Page() {
-  //region hooks
-  const [table] = useState(
-    () =>
-      new HighlightsTable(fetchHighlightsDataHandler, handleClickBookRemove),
-  );
-
-  const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    const loadData = async () => {
-      await fetchHighlightsDataHandler({ page: 1, size: 1 });
-    };
-    loadData();
-  }, []);
-
-  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
-  const [selectedId, setSelectedId] = useState<string | null>(null);
-  //endregion
-
   //region functions
   async function fetchHighlightsData(
     page: number,
@@ -136,19 +117,39 @@ function Page() {
       }, 500);
     });
   }
-  async function fetchHighlightsDataHandler(
-    pageable: PageableModel,
-  ): Promise<void> {
-    console.log(pageable);
-    setIsLoading(true);
-    const data = await fetchHighlightsData(0, 10);
-    table.data = data;
-    setIsLoading(false);
-  }
+
+  const fetchHighlightsDataHandler = useCallback(
+    async (pageable: PageableModel): Promise<void> => {
+      console.log(pageable);
+      setIsLoading(true);
+      const data = await fetchHighlightsData(0, 10);
+      if (tableRef.current) {
+        tableRef.current.data = data;
+      }
+      setIsLoading(false);
+    },
+    [],
+  );
   function handleClickBookRemove(id: string): void {
     setIsDeleteDialogOpen(true);
     setSelectedId(id);
   }
+  //endregion
+
+  //region hooks
+  const [isLoading, setIsLoading] = useState(false);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const tableRef = useRef<HighlightsTable>();
+
+  useEffect(() => {
+    tableRef.current = new HighlightsTable(
+      fetchHighlightsDataHandler,
+      handleClickBookRemove,
+    );
+    fetchHighlightsDataHandler({ page: 1, size: 1 });
+  }, [fetchHighlightsDataHandler]);
+
   //endregion
   return (
     <div className="container mx-auto flex flex-col gap-10 mt-12" dir="rtl">
@@ -156,7 +157,10 @@ function Page() {
         <h2 className="text-secondary text-4xl">هایلایت ها</h2>
         <SearchBox />
       </div>
-      <Table adapter={table} loading={isLoading} />
+      {tableRef.current && (
+        <Table adapter={tableRef.current} loading={isLoading} />
+      )}
+
       <ConfirmDialog
         open={isDeleteDialogOpen}
         onOpenChange={() => setIsDeleteDialogOpen(false)}

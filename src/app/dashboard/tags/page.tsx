@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import TagsTable from "@/app/dashboard/tags/tags.table";
 import { PageableModel, PageModel } from "@/models/page.model";
 import { TagsModel } from "@/app/dashboard/tags/tags.model";
@@ -10,44 +10,44 @@ import { EditTagDialog } from "@/components/dialogs/EditTagDialog";
 import { ConfirmDialog } from "@/components/dialogs/ConfirmDialog";
 
 function Page() {
-  //region hooks
-  const [table] = useState(
-    () =>
-      new TagsTable(
-        fetchTagsDataHandler,
-        handleClickTagRemove,
-        handleClickTagEdit,
-      ),
+  //region functions
+  const fetchTagsDataHandler = useCallback(
+    async (pageable: PageableModel): Promise<void> => {
+      console.log(pageable);
+      setIsLoading(true);
+      const data = await fetchTagsData(0, 10);
+      if (tableRef.current) {
+        tableRef.current.data = data;
+      }
+      setIsLoading(false);
+    },
+    [],
   );
-  const [isLoading, setIsLoading] = useState(false);
-  useEffect(() => {
-    const loadData = async () => {
-      await fetchTagsDataHandler({ page: 1, size: 1 });
-    };
-    loadData();
+
+  const handleClickTagRemove = useCallback((id: string): void => {
+    setIsDialogOpen(true);
+    setSelectedId(id);
   }, []);
 
+  const handleClickTagEdit = useCallback(() => setIsEditDialogOpen(true), []);
+  //endregion
+
+  //region hooks
+  const [isLoading, setIsLoading] = useState(false);
   const [isDeleteDialogOpen, setIsDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
-  //endregion
+  const tableRef = useRef<TagsTable>();
 
-  //region functions
+  useEffect(() => {
+    tableRef.current = new TagsTable(
+      fetchTagsDataHandler,
+      handleClickTagRemove,
+      handleClickTagEdit,
+    );
+    fetchTagsDataHandler({ page: 1, size: 1 });
+  }, [fetchTagsDataHandler]);
 
-  async function fetchTagsDataHandler(pageable: PageableModel): Promise<void> {
-    setIsLoading(true);
-    const data = await fetchTagsData(0, 10);
-    table.data = data;
-    setIsLoading(false);
-  }
-
-  function handleClickTagRemove(id: string): void {
-    setIsDialogOpen(true);
-    setSelectedId(id);
-  }
-  function handleClickTagEdit(): void {
-    setIsEditDialogOpen(true);
-  }
   //endregion
   return (
     <div className="container mx-auto flex flex-col gap-10 mt-12" dir="rtl">
@@ -55,7 +55,10 @@ function Page() {
         <h2 className="text-secondary text-4xl">برجسب ها</h2>
         <Button text={"افزودن برچسب"} type={"secondary"} leftIcon={<Plus />} />
       </div>
-      <Table adapter={table} loading={isLoading} />
+      {tableRef.current && (
+        <Table adapter={tableRef.current} loading={isLoading} />
+      )}
+
       <ConfirmDialog
         title={"حذف برچسب"}
         message={"آیا از حذف برچسب  مطمئن هستید؟"}
