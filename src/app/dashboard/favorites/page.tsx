@@ -10,12 +10,12 @@ import { ConfirmDialog } from "@/components/dialogs/ConfirmDialog";
 function Page() {
   //region hooks
   const [table] = useState(
-    () => new FavoritesTable(fetchTagsDataHandler, handleClickBookRemove),
+    () => new FavoritesTable(fetchFavoritesDataHandler, handleClickBookRemove),
   );
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     const loadData = async () => {
-      await fetchTagsDataHandler({ page: 1, size: 1 });
+      await fetchFavoritesDataHandler({ page: 1, size: 1 });
     };
     loadData();
   }, []);
@@ -26,7 +26,9 @@ function Page() {
 
   //region functions
 
-  async function fetchTagsDataHandler(pageable: PageableModel): Promise<void> {
+  async function fetchFavoritesDataHandler(
+    pageable: PageableModel,
+  ): Promise<void> {
     console.log(pageable);
     setIsLoading(true);
     const data = await fetchFavoriteBooks(0, 10);

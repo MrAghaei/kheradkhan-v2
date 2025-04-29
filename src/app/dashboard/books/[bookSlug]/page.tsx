@@ -1,7 +1,7 @@
 import HeadInfoBox from "@/components/main/HeadInfoBox";
 import Button from "@/components/main/Button";
 import Image from "next/image";
-import { MessageSquareQuote, Plus } from "lucide-react";
+import { Plus } from "lucide-react";
 import HighlightCard, {
   HighlightCardDataType,
 } from "@/components/books/HighlightCard";
