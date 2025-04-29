@@ -140,7 +140,7 @@ function Page() {
   const [isLoading, setIsLoading] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
-  const tableRef = useRef<HighlightsTable>();
+  const tableRef = useRef<HighlightsTable>(null);
 
   useEffect(() => {
     tableRef.current = new HighlightsTable(

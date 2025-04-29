@@ -37,7 +37,7 @@ function Page() {
   const [isDeleteDialogOpen, setIsDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
-  const tableRef = useRef<TagsTable>();
+  const tableRef = useRef<TagsTable>(null);
 
   useEffect(() => {
     tableRef.current = new TagsTable(
@@ -46,7 +46,7 @@ function Page() {
       handleClickTagEdit,
     );
     fetchTagsDataHandler({ page: 1, size: 1 });
-  }, [fetchTagsDataHandler]);
+  }, [fetchTagsDataHandler, handleClickTagRemove, handleClickTagEdit]);
 
   //endregion
   return (

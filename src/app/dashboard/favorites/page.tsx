@@ -1,5 +1,5 @@
 "use client";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { PageableModel, PageModel } from "@/models/page.model";
 import { Table } from "@/components/table/Table";
 import SearchBox from "@/components/main/SearchBox";
@@ -34,7 +34,7 @@ function Page() {
   const [isLoading, setIsLoading] = useState(false);
   const [isDeleteDialogOpen, setIsDialogOpen] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
-  const tableRef = useRef<FavoritesTable>();
+  const tableRef = useRef<FavoritesTable>(null);
 
   useEffect(() => {
     tableRef.current = new FavoritesTable(

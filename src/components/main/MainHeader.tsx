@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { ChevronDown, Ellipsis, User } from "lucide-react";
+import { ChevronDown, User } from "lucide-react";
 import Button from "@/components/main/Button";
 import SearchBox from "@/components/main/SearchBox";
 import { useRouter } from "next/navigation";

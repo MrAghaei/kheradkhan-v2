@@ -56,7 +56,10 @@ export default class TagsTable extends TableAdapter<TagsModel> {
         type: ColumnType.ACTIONS,
         actions: {
           edit: {
-            onClick: (element) => this._handleTagEdit(),
+            onClick: (element) => {
+              console.log(element);
+              this._handleTagEdit();
+            },
             text: "تغییر برچسب",
           },
           delete: {
