@@ -1,12 +1,13 @@
 "use client";
 import React, { useState, FC } from "react";
 
-interface Option {
+export interface ReviewOptions {
   text: string;
+  isActive: boolean;
 }
 
 interface ReviewFrequencyCardProps {
-  options: Option[];
+  options: ReviewOptions[];
   /** Initial active tab (defaults to first) */
   initialIndex?: number;
   /** Notified when user switches tabs */
