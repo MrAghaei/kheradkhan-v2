@@ -1,10 +1,12 @@
 import ReviewCard from "@/components/review/ReviewCard";
-import ReviewFrequencyCard from "@/components/review/ReviewFrequencyCard";
+import ReviewFrequencyCard, {
+  ReviewOptions,
+} from "@/components/review/ReviewFrequencyCard";
 import Image from "next/image";
 
 function Page() {
   //region data
-  const frequencyOptions: object[] = [
+  const frequencyOptions: ReviewOptions[] = [
     { text: "هیچوقت", isActive: false },
     { text: "گاهی اوقات", isActive: false },
     { text: "متوسط", isActive: false },
