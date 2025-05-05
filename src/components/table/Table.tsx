@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Ellipsis } from "lucide-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 interface TableProps<T> {
   adapter: TableAdapter<T>;
@@ -33,6 +34,10 @@ export function Table<T>({ adapter, loading, className = "" }: TableProps<T>) {
   const data = adapter.data;
 
   //region hooks
+  const router = useRouter();
+  //endregion
+
+  //region functions
 
   //endregion
 
@@ -123,14 +128,35 @@ export function Table<T>({ adapter, loading, className = "" }: TableProps<T>) {
               key={index}
             >
               {columns.map((column) => {
+                const isAuthorLabel = column.label === "نویسنده";
+                const isBookLabel = column.label === "نام کتاب";
+                const isTagLabel = column.label === "برچسب";
                 const tdClassName =
                   typeof column.className === "function"
                     ? column.className(element)
                     : column.className;
                 return (
                   <td
+                    onClick={
+                      isAuthorLabel
+                        ? () =>
+                            router.push(
+                              `/dashboard/author/${column.value?.name}`,
+                            )
+                        : isBookLabel
+                          ? () =>
+                              router.push(
+                                `/dashboard/books/${column.value?.name}`,
+                              )
+                          : isTagLabel
+                            ? () =>
+                                router.push(
+                                  `/dashboard/tags/${column.value?.name}`,
+                                )
+                            : () => console.log("")
+                    }
                     key={`${column.key}-${index}`}
-                    className={`px-6 py-6 text-center whitespace-nowrap ${tdClassName || ""}`}
+                    className={`px-6 py-6 text-center whitespace-nowrap cursor-pointer ${isAuthorLabel || isBookLabel || isTagLabel ? "hover:underline" : ""} ${tdClassName || ""}`}
                   >
                     {renderCell(column, element, index)}
                   </td>
