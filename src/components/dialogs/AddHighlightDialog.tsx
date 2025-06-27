@@ -34,6 +34,7 @@ export function AddHighlightDialog({
   const [books, setBooks] = useState<{ id: string; title: string }[]>([]);
   const [bookId, setBookId] = useState("");
   const [newBookTitle, setNewBookTitle] = useState("");
+  const [newBookAuthor, setNewBookAuthor] = useState("");
   const [addingNewBook, setAddingNewBook] = useState(false);
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false);
@@ -60,10 +61,12 @@ export function AddHighlightDialog({
     let finalBookId = bookId;
 
     if (addingNewBook && newBookTitle.trim()) {
-      // insert the new book first
       const { data, error: insertBookError } = await supabase
         .from("books")
-        .insert({ title: newBookTitle.trim() })
+        .insert({
+          title: newBookTitle.trim(),
+          author: newBookAuthor.trim() || null,
+        })
         .select()
         .single();
 
@@ -88,9 +91,9 @@ export function AddHighlightDialog({
     if (insertHighlightError) {
       console.error("Failed to insert highlight", insertHighlightError);
     } else {
-      // Reset state
       setBookId("");
       setNewBookTitle("");
+      setNewBookAuthor("");
       setContent("");
       setAddingNewBook(false);
       onOpenChange(false);
@@ -100,9 +103,9 @@ export function AddHighlightDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-md">
+      <DialogContent dir="rtl" className="max-w-md">
         <DialogHeader>
-          <DialogTitle>افزودن هایلایت جدید</DialogTitle>
+          <DialogTitle className="text-right">افزودن هایلایت جدید</DialogTitle>
         </DialogHeader>
 
         <div className="flex flex-col gap-4 mt-4">
@@ -110,7 +113,7 @@ export function AddHighlightDialog({
             <Label>کتاب</Label>
             {!addingNewBook ? (
               <>
-                <Select value={bookId} onValueChange={setBookId}>
+                <Select dir="rtl" value={bookId} onValueChange={setBookId}>
                   <SelectTrigger className="mt-1">
                     <SelectValue placeholder="انتخاب کتاب" />
                   </SelectTrigger>
@@ -139,11 +142,17 @@ export function AddHighlightDialog({
                   value={newBookTitle}
                   onChange={(e) => setNewBookTitle(e.target.value)}
                 />
+                <Input
+                  placeholder="نام نویسنده (اختیاری)"
+                  value={newBookAuthor}
+                  onChange={(e) => setNewBookAuthor(e.target.value)}
+                />
                 <button
                   className="text-sm text-blue-600 underline"
                   onClick={() => {
                     setAddingNewBook(false);
                     setNewBookTitle("");
+                    setNewBookAuthor("");
                   }}
                 >
                   انتخاب از بین کتاب‌ها

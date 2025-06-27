@@ -289,12 +289,6 @@ function Page() {
         dir="rtl"
       >
         <h2 className="text-secondary text-3xl">هایلایت ها</h2>
-        <Button
-          onClick={() => setIsAddHighlightDialogOpen(true)}
-          text={"افزودن هایلایت"}
-          type={"secondary"}
-          leftIcon={<Plus />}
-        />
       </div>
       {highlightData.map((highlight, index) => (
         <HighlightCard
