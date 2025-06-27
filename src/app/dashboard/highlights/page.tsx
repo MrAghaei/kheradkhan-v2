@@ -7,6 +7,9 @@ import { Table } from "@/components/table/Table";
 import { ConfirmDialog } from "@/components/dialogs/ConfirmDialog";
 import { FavoritesModel } from "@/app/dashboard/favorites/favorites.model";
 import { supabase } from "@/lib/supabaseClient";
+import { Plus } from "lucide-react";
+import Button from "@/components/main/Button";
+import { AddHighlightDialog } from "@/components/dialogs/AddHighlightDialog";
 
 function Page() {
   //region functions
@@ -118,7 +121,10 @@ function Page() {
   //     }, 500);
   //   });
   // }
-
+  //region hooks
+  const [isAddHighlightDialogOpen, setIsAddHighlightDialogOpen] =
+    useState(false);
+  //regionend
   async function fetchHighlightsData(
     page: number,
     size: number,
@@ -226,12 +232,20 @@ function Page() {
     <div className="container mx-auto flex flex-col gap-10 mt-12" dir="rtl">
       <div className="flex justify-between pb-5 border-b border-primary">
         <h2 className="text-secondary text-4xl">هایلایت ها</h2>
-        <SearchBox />
+        <Button
+          onClick={() => setIsAddHighlightDialogOpen(true)}
+          text={"افزودن هایلایت"}
+          type={"secondary"}
+          leftIcon={<Plus />}
+        />
       </div>
       {tableRef.current && (
         <Table adapter={tableRef.current} loading={isLoading} />
       )}
-
+      <AddHighlightDialog
+        open={isAddHighlightDialogOpen}
+        onOpenChange={setIsAddHighlightDialogOpen}
+      />
       <ConfirmDialog
         open={isDeleteDialogOpen}
         onOpenChange={() => setIsDeleteDialogOpen(false)}

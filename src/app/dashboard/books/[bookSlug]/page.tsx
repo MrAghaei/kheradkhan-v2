@@ -1,3 +1,4 @@
+"use client";
 import HeadInfoBox from "@/components/main/HeadInfoBox";
 import Button from "@/components/main/Button";
 import Image from "next/image";
@@ -6,6 +7,8 @@ import HighlightCard, {
   HighlightCardDataType,
 } from "@/components/books/HighlightCard";
 import Pagination from "@/components/main/Pagination";
+import { AddHighlightDialog } from "@/components/dialogs/AddHighlightDialog";
+import { useState } from "react";
 
 function Page() {
   //region data
@@ -232,6 +235,11 @@ function Page() {
     },
   ];
   //endregion
+
+  //region hooks
+  const [isAddHighlightDialogOpen, setIsAddHighlightDialogOpen] =
+    useState(false);
+  //regionend
   return (
     <div className="container mx-auto flex flex-col">
       <HeadInfoBox
@@ -281,11 +289,6 @@ function Page() {
         dir="rtl"
       >
         <h2 className="text-secondary text-3xl">هایلایت ها</h2>
-        <Button
-          text={"افزودن هایلایت"}
-          type={"secondary"}
-          leftIcon={<Plus />}
-        />
       </div>
       {highlightData.map((highlight, index) => (
         <HighlightCard
@@ -295,6 +298,10 @@ function Page() {
           tags={highlight.tags}
         />
       ))}
+      <AddHighlightDialog
+        open={isAddHighlightDialogOpen}
+        onOpenChange={setIsAddHighlightDialogOpen}
+      />
       <div className="self-start">
         <Pagination totalPages={12} initialPage={1} />
       </div>
