@@ -141,17 +141,17 @@ export function Table<T>({ adapter, loading, className = "" }: TableProps<T>) {
                       isAuthorLabel
                         ? () =>
                             router.push(
-                              `/dashboard/author/${column.value?.name}`,
+                              `/dashboard/author/${column.value?.(element)}`,
                             )
                         : isBookLabel
                           ? () =>
                               router.push(
-                                `/dashboard/books/${column.value?.name}`,
+                                `/dashboard/books/${(element as any).id}`,
                               )
                           : isTagLabel
                             ? () =>
                                 router.push(
-                                  `/dashboard/tags/${column.value?.name}`,
+                                  `/dashboard/tags/${column.value?.(element)}`,
                                 )
                             : () => console.log("")
                     }
