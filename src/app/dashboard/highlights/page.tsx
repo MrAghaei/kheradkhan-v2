@@ -2,7 +2,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import HighlightsTable from "@/app/dashboard/highlights/highlights.table";
 import { PageableModel, PageModel } from "@/models/page.model";
-import SearchBox from "@/components/main/SearchBox";
 import { Table } from "@/components/table/Table";
 import { ConfirmDialog } from "@/components/dialogs/ConfirmDialog";
 import { FavoritesModel } from "@/app/dashboard/favorites/favorites.model";
